@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "PMNetworking",
+        "repositoryURL": "https://github.com/gr-yarik/PMNetworking.git",
+        "state": {
+          "branch": null,
+          "revision": "a6e8991b8958da780aaddff221e3e5d3f6d2a26f",
+          "version": "1.0.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
