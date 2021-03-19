@@ -9,7 +9,7 @@ import UIKit
 
 public class PMAuthButton: UIButton {
 
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
     }
@@ -20,7 +20,7 @@ public class PMAuthButton: UIButton {
     }
     
     
-    convenience init(backgroundColor: UIColor, title: String = "Sign In with PM") {
+    public convenience init(backgroundColor: UIColor, title: String = "Sign In with PM") {
         self.init(frame: .zero)
         self.backgroundColor = backgroundColor
         self.setTitle(title, for: .normal)

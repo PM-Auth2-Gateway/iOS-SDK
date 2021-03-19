@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 import PMNetworking
 
 public class AuthPM {
@@ -6,7 +6,7 @@ public class AuthPM {
     let appId: String
     
     
-    init(appId: String) {
+    public init(appId: String) {
         self.appId = appId
         
     }
@@ -15,7 +15,7 @@ public class AuthPM {
     
     public func getAllAvailableAuthButtons() -> [PMAuthButton] {
         
-        
+        return [PMAuthButton(backgroundColor: .red, title: "Войти с помощью PM")]
     }
     
 }
