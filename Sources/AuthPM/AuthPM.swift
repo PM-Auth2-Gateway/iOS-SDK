@@ -1,3 +1,3 @@
 struct AuthPM {
-    var text = "Hello"
+    var text = "Hello World!"
 }
