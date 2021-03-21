@@ -18,7 +18,7 @@ class NetworkService {
     func getServiceList(byAppId: String, then: @escaping (AvailableServices) -> Void) {
         
 //        let resource = Resource(url: , requestMethod: .GET, decodingType: [Social].self)
-        then(AvailableServices(socials: [Social(id: 1, name: "Facebook")]))
+        then(AvailableServices(socials: [Social(id: 1, name: "Google"), Social(id: 2, name: "Facebook")]))
     }
     
 }

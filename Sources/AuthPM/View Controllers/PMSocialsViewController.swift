@@ -11,14 +11,17 @@ class PMSocialsViewController: UIViewController {
     
     let containerView = PMSocialsContainerView()
     let titleLabel = PMTitleLabel(textAlignment: .center, fontSize: 20)
+    var tableView = PMSocialsTableView()
     let actionButton = PMButton(backgroundColor: .systemRed, title: "Cancel")
+    var availableServices: AvailableServices?
     
     let padding: CGFloat = 20
     
-    init() {
+    init(availableServices: AvailableServices) {
         super.init(nibName: nil, bundle: nil)
-        modalPresentationStyle  = .overFullScreen
-        modalTransitionStyle    = .crossDissolve
+        self.availableServices = availableServices
+        modalPresentationStyle = .overFullScreen
+        modalTransitionStyle = .crossDissolve
     }
     
     required init?(coder: NSCoder) {
@@ -30,10 +33,12 @@ class PMSocialsViewController: UIViewController {
         view.backgroundColor = UIColor.black.withAlphaComponent(0.75)
         view.addSubview(containerView)
         view.addSubview(titleLabel)
+        view.addSubview(tableView)
         view.addSubview(actionButton)
         
         configureContainerView()
         configureTitleLabel()
+        configureTableView()
         configureActionButton()
     }
     
@@ -43,7 +48,7 @@ class PMSocialsViewController: UIViewController {
             containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             containerView.widthAnchor.constraint(equalToConstant: 280),
-            containerView.heightAnchor.constraint(equalToConstant: 220)
+            containerView.heightAnchor.constraint(equalToConstant: 310)
         ])
     }
     
@@ -56,6 +61,19 @@ class PMSocialsViewController: UIViewController {
             titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding),
             titleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
             titleLabel.heightAnchor.constraint(equalToConstant: 28)
+        ])
+    }
+    
+    
+    func configureTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15),
+            tableView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding),
+            tableView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
+            tableView.bottomAnchor.constraint(equalTo: actionButton.topAnchor, constant: -15)
         ])
     }
     
@@ -77,3 +95,36 @@ class PMSocialsViewController: UIViewController {
     }
 }
 
+extension PMSocialsViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        guard let availableServices = availableServices else { return 0 }
+        return availableServices.socials.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SocialCell.reuseIdentifier, for: indexPath) as? SocialCell else { return UITableViewCell() }
+        switch indexPath.section {
+        case 0:
+            cell.configure(backgroundColor: PMColors.google, logoImage: PMImages.google, text: "Sign in with Google")
+        case 1:
+            cell.configure(backgroundColor: PMColors.google, logoImage: PMImages.facebook, text: "Sign in with Facebook")
+        default:
+            break
+        }
+        return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 10
+    }
+    
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView(frame: .zero)
+    }
+}
