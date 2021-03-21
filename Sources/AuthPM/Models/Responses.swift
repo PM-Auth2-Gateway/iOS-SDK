@@ -10,11 +10,11 @@ import Foundation
 // MARK: Get available services to authenticate
 
 struct AvailableServices {
-    let services: [Service]
+    let socials: [Social]
 }
 
-struct Service {
-    let id: String
+struct Social {
+    let id: Int
     let name: String
 }
 
