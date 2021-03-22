@@ -15,6 +15,5 @@ enum PMImages {
 enum PMColors {
     static let google = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
     static let facebook = UIColor(red: 65/255, green: 93/255, blue: 174/255, alpha: 1)
-        
 }
 

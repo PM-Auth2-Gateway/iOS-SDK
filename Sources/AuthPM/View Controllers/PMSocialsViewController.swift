@@ -9,13 +9,13 @@ import UIKit
 
 class PMSocialsViewController: UIViewController {
     
-    let containerView = PMSocialsContainerView()
-    let titleLabel = PMTitleLabel(textAlignment: .center, fontSize: 20)
-    var tableView = PMSocialsTableView()
-    let actionButton = PMButton(backgroundColor: .systemRed, title: "Cancel")
-    var availableServices: AvailableServices?
+    private let containerView = PMContainerView()
+    private let titleLabel = PMTitleLabel(textAlignment: .center, fontSize: 20)
+    private let tableView = PMSocialsTableView()
+    private let actionButton = PMButton(backgroundColor: .systemRed, title: "Cancel")
+    private var availableServices: AvailableServices?
     
-    let padding: CGFloat = 20
+    private let padding: CGFloat = 20
     
     init(availableServices: AvailableServices) {
         super.init(nibName: nil, bundle: nil)
@@ -31,10 +31,7 @@ class PMSocialsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.black.withAlphaComponent(0.75)
-        view.addSubview(containerView)
-        view.addSubview(titleLabel)
-        view.addSubview(tableView)
-        view.addSubview(actionButton)
+        view.addSubviews(containerView, titleLabel, tableView, actionButton)
         
         configureContainerView()
         configureTitleLabel()
@@ -43,7 +40,7 @@ class PMSocialsViewController: UIViewController {
     }
     
     
-    func configureContainerView() {
+    private func configureContainerView() {
         NSLayoutConstraint.activate([
             containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -53,7 +50,7 @@ class PMSocialsViewController: UIViewController {
     }
     
     
-    func configureTitleLabel() {
+    private func configureTitleLabel() {
         titleLabel.text = "Select a Service"
         
         NSLayoutConstraint.activate([
@@ -65,7 +62,7 @@ class PMSocialsViewController: UIViewController {
     }
     
     
-    func configureTableView() {
+    private func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -78,7 +75,7 @@ class PMSocialsViewController: UIViewController {
     }
     
     
-    func configureActionButton() {
+    private func configureActionButton() {
         actionButton.addTarget(self, action: #selector(dismissVC), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
@@ -90,7 +87,7 @@ class PMSocialsViewController: UIViewController {
     }
     
     
-    @objc func dismissVC() {
+    @objc private func dismissVC() {
         dismiss(animated: true)
     }
 }
@@ -106,15 +103,9 @@ extension PMSocialsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SocialCell.reuseIdentifier, for: indexPath) as? SocialCell else { return UITableViewCell() }
-        switch indexPath.section {
-        case 0:
-            cell.configure(backgroundColor: PMColors.google, logoImage: PMImages.google, text: "Sign in with Google")
-        case 1:
-            cell.configure(backgroundColor: PMColors.google, logoImage: PMImages.facebook, text: "Sign in with Facebook")
-        default:
-            break
-        }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SocialCell.reuseIdentifier, for: indexPath) as? SocialCell, let availableServices = availableServices else { return UITableViewCell() }
+        let service = availableServices.socials[indexPath.section]
+        cell.configure(serviceName: service.name)
         return cell
     }
     

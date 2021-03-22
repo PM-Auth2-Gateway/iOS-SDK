@@ -9,18 +9,18 @@ import Foundation
 
 // MARK: Get available services to authenticate
 
-struct AvailableServices {
+struct AvailableServices: Codable {
     let socials: [Social]
 }
 
-struct Social {
+struct Social: Codable {
     let id: Int
     let name: String
 }
 
 // MARK: Get URL parts to get token from the Service
 
-struct URLComponentsForService {
+struct URLComponentsForService: Codable {
     
     let redirectUrl: String
     let prompt: String

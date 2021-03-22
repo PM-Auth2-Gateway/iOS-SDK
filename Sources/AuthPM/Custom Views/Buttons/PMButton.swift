@@ -14,14 +14,6 @@ public class PMButton: UIButton {
         configure()
     }
     
-    
-//    init(hostingViewController: UIViewController, authorizator: Authorizator) {
-//        self.hostingViewController = hostingViewController
-//
-//
-//    }
-    
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -39,11 +31,5 @@ public class PMButton: UIButton {
         titleLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
         setTitleColor(.white, for: .normal)
         translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    
-    func set(backgroundColor: UIColor, title: String) {
-        self.backgroundColor = backgroundColor
-        setTitle(title, for: .normal)
     }
 }

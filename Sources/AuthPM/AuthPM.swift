@@ -1,50 +1,45 @@
 import UIKit
 import PMNetworking
 
-protocol Authorizator {
-    var availableServices: AvailableServices? { get }
+public class AuthPM {
     
-}
-
-public class AuthPM: Authorizator {
-    
-    let appId: String
-    private(set) var availableServices: AvailableServices?
-    private let authButton: PMButton
-    private var hostingViewController: UIViewController?
+    private let appId: String
+    private var availableServicesResponse: Result<AvailableServices, PMNetworkingError>?
+    private let authButton = PMButton(backgroundColor: .orange, title: "Sign In with PM")
+    weak private var hostingViewController: UIViewController?
     
     public init(appId: String) {
         self.appId = appId
-        authButton = PMButton(backgroundColor: .orange, title: "Sign In with PM")
-        
-        NetworkService.shared.getServiceList(byAppId: appId) { [weak self] availableServices in
+    
+        NetworkService.shared.getServiceList(byAppId: appId) { [weak self] availableServicesResponse in
             guard let self = self else { return }
-            self.availableServices = availableServices
+            self.availableServicesResponse = availableServicesResponse
         }
-    }
-    
-    
-    private func configureAuthButton() {
-        
-        
     }
     
     
     public func getAuthButton(toPresentInViewController hostingViewController: UIViewController) -> PMButton {
         self.hostingViewController = hostingViewController
-        authButton.addTarget(self, action: #selector(presentSocialsViewController), for: .touchUpInside)
+        authButton.addTarget(self, action: #selector(authButtonAction), for: .touchUpInside)
         return authButton
     }
     
-    @objc private func presentSocialsViewController() {
-        guard let availableServices = availableServices else { return }
-        let socialsViewController = PMSocialsViewController(availableServices: availableServices)
-        hostingViewController?.present(socialsViewController, animated: true, completion: nil)
-    }
     
-//    public func getAllAvailableAuthButtons() -> [PMAuthButton] {
-//
-//
-//    }
-    
+    @objc private func authButtonAction() {
+        switch availableServicesResponse {
+        case .success(let services):
+            if services.socials.count > 0 {
+                let socialsViewController = PMSocialsViewController(availableServices: services)
+                hostingViewController?.present(socialsViewController, animated: true, completion: nil)
+            } else {
+                let alertVC = PMAlertViewController(title: "Error", message: "This app doesn't support any services to log in with.", buttonTitle: "Ok")
+                hostingViewController?.present(alertVC, animated: true, completion: nil)
+            }
+        case .failure(let error):
+            let alertVC = PMAlertViewController(title: "Error", message: error.rawValue, buttonTitle: "Ok")
+            hostingViewController?.present(alertVC, animated: true, completion: nil)
+        case .none:
+            return
+        }
+    }    
 }

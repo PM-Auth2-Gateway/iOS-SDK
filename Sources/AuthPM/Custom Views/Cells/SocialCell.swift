@@ -24,20 +24,21 @@ class SocialCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(backgroundColor: UIColor, logoImage: UIImage, text: String) {
-        contentView.backgroundColor = backgroundColor
-        logoImageView.image = logoImage
-        titleLabel.text = text
+    func configure(serviceName: String) {
+        if serviceName == "Google" {
+            logoImageView.image = PMImages.google
+        } else if serviceName == "Facebook" {
+            logoImageView.image = PMImages.facebook
+        }
+        titleLabel.text = "Sign in with \(serviceName)"
     }
     
     private func layoutUI() {
         contentView.layer.cornerRadius = 5
-        contentView.addSubview(logoImageView)
-        contentView.addSubview(titleLabel)
-//        logoImageView.backgroundColor = .red
+        contentView.addSubviews(logoImageView, titleLabel)
+        contentView.backgroundColor = UIColor(red: 242/255, green: 243/255, blue: 244/255, alpha: 1)
         logoImageView.contentMode = .scaleAspectFit
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             logoImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
             logoImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
@@ -49,5 +50,4 @@ class SocialCell: UITableViewCell {
             titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
     }
-    
 }
