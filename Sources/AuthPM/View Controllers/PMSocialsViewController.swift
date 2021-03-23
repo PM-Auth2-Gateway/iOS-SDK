@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import AuthenticationServices
 
-class PMSocialsViewController: UIViewController {
+class PMSocialsViewController: PMDataLoadingViewController {
     
     private let containerView = PMContainerView()
     private let titleLabel = PMTitleLabel(textAlignment: .center, fontSize: 20)
@@ -117,5 +118,26 @@ extension PMSocialsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return UIView(frame: .zero)
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let session = ASWebAuthenticationSession(url: URL(string: "https://net-api-hbyuu.ondigitalocean.app/WeatherForecast/test")!, callbackURLScheme: "pmacademy") { (url, error) in
+            guard error == nil else {
+                print(error!)
+                return
+            }
+//            обработать url
+        }
+
+        session.presentationContextProvider = self
+        session.start()
+    }
+}
+
+extension PMSocialsViewController: ASWebAuthenticationPresentationContextProviding {
+    func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+        return view.window!
     }
 }

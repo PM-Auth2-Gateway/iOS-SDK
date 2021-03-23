@@ -27,10 +27,8 @@ class PMBodyLabel: UILabel {
     
     
     private func configure() {
-        if #available(iOS 13.0, *) {
-            textColor = .secondaryLabel
-            adjustsFontForContentSizeCategory = true
-        }
+        textColor = .secondaryLabel
+        adjustsFontForContentSizeCategory = true
         font = UIFont.preferredFont(forTextStyle: .body)
         adjustsFontSizeToFitWidth = true
         minimumScaleFactor = 0.75
