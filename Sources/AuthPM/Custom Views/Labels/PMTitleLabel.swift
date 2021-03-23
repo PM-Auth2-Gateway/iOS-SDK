@@ -29,11 +29,11 @@ class PMTitleLabel: UILabel {
     
     private func configure() {
         if #available(iOS 13.0, *) {
-            textColor                   = .label
+            textColor = .label
         }
-        adjustsFontSizeToFitWidth   = true
-        minimumScaleFactor          = 0.9
-        lineBreakMode               = .byTruncatingTail
+        adjustsFontSizeToFitWidth = true
+        minimumScaleFactor = 0.9
+        lineBreakMode = .byTruncatingTail
         translatesAutoresizingMaskIntoConstraints = false
     }
 }

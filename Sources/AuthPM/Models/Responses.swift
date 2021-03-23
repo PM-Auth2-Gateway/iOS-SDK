@@ -16,31 +16,40 @@ struct AvailableServices: Codable {
 struct Social: Codable {
     let id: Int
     let name: String
+    let authUri: String
+}
+
+struct SocialId: Codable {
+    let socialId: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case socialId = "social_id"
+    }
 }
 
 // MARK: Get URL parts to get token from the Service
 
 struct URLComponentsForService: Codable {
     
-    let redirectUrl: String
+    let authUri: String
     let prompt: String
-//    “prompt”: “consent”,
+    //    “prompt”: “consent”,
     
     let responseType: String
-//    “response_type”: “code”,
+    //    “response_type”: “code”,
     
     let clientId: String
-//    "client_id": “*******”,
+    //    "client_id": “*******”,
     
     let scope: String
-//    “scope”: “****”,
+    //    “scope”: “****”,
     
     let accessType: String
-//    “access_type”: “*****” //???? для чого? почитати
+    //    “access_type”: “*****” //???? для чого? почитати
     
     
     enum CodingKeys: String, CodingKey {
-        case redirectUrl = "auth_uri"
+        case authUri = "auth_uri"
         case prompt
         case responseType = "responce_type"
         case clientId = "client_id"

@@ -5,6 +5,7 @@ public class AuthPM {
     
     private let appId: String
     private var availableServicesResponse: Result<AvailableServices, PMNetworkingError>?
+    private var urlComponentsResponse: Result<URLComponentsForService, PMNetworkingError>?
     private let authButton = PMButton(backgroundColor: .orange, title: "Sign In with PM")
     weak private var hostingViewController: UIViewController?
     
@@ -14,6 +15,11 @@ public class AuthPM {
         NetworkService.shared.getServiceList(byAppId: appId) { [weak self] availableServicesResponse in
             guard let self = self else { return }
             self.availableServicesResponse = availableServicesResponse
+        }
+        
+        NetworkService.shared.linkRequest(byAppId: appId) { [weak self] urlComponentsResponse in
+            guard let self = self else { return }
+            self.urlComponentsResponse = urlComponentsResponse
         }
     }
     
@@ -32,11 +38,11 @@ public class AuthPM {
                 let socialsViewController = PMSocialsViewController(availableServices: services)
                 hostingViewController?.present(socialsViewController, animated: true, completion: nil)
             } else {
-                let alertVC = PMAlertViewController(title: "Error", message: "This app doesn't support any services to log in with.", buttonTitle: "Ok")
+                let alertVC = PMAlertViewController(title: "Error", message: "This app doesn't support any services to log in with.", buttonTitle: "OK")
                 hostingViewController?.present(alertVC, animated: true, completion: nil)
             }
         case .failure(let error):
-            let alertVC = PMAlertViewController(title: "Error", message: error.rawValue, buttonTitle: "Ok")
+            let alertVC = PMAlertViewController(title: "Error", message: error.rawValue, buttonTitle: "OK")
             hostingViewController?.present(alertVC, animated: true, completion: nil)
         case .none:
             return
