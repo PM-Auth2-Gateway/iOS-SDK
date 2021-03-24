@@ -10,29 +10,33 @@ import UIKit
 class PMDataLoadingViewController: UIViewController {
     
     var activityContainerView: UIView!
-
+    
     func showLoadingView() {
         activityContainerView = UIView(frame: view.bounds)
         view.addSubview(activityContainerView)
         
-        activityContainerView.backgroundColor = .systemBackground
+        activityContainerView.backgroundColor = .darkGray
         activityContainerView.alpha = 0
         
-        UIView.animate(withDuration: 0.25) { self.activityContainerView.alpha = 0.8 }
-        
         let activityIndicator = UIActivityIndicatorView(style: .large)
-        activityContainerView.addSubview(activityIndicator)
+        
+        UIView.animate(withDuration: 0.25, delay: 0.5) {
+            self.activityContainerView.alpha = 0.8
+            self.activityContainerView.addSubview(activityIndicator)
+        }
         
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.color = .white
         
         NSLayoutConstraint.activate([
             activityIndicator.centerYAnchor.constraint(equalTo: activityContainerView.centerYAnchor),
             activityIndicator.centerXAnchor.constraint(equalTo: activityContainerView.centerXAnchor)
         ])
-        
-        activityIndicator.startAnimating()
+        DispatchQueue.main.async {
+            activityIndicator.startAnimating()            
+        }
     }
-    
+
     
     func dismissLoadingView() {
         DispatchQueue.main.async {

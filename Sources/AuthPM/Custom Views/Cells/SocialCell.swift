@@ -17,7 +17,7 @@ class SocialCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        layoutUI()
+        configure()
     }
     
     required init?(coder: NSCoder) {
@@ -33,10 +33,11 @@ class SocialCell: UITableViewCell {
         titleLabel.text = "Sign in with \(serviceName)"
     }
     
-    private func layoutUI() {
+    private func configure() {
+        selectionStyle = .none
         contentView.layer.cornerRadius = 5
         contentView.addSubviews(logoImageView, titleLabel)
-        contentView.backgroundColor = UIColor(red: 242/255, green: 243/255, blue: 244/255, alpha: 1)
+        contentView.backgroundColor = .systemGray5
         logoImageView.contentMode = .scaleAspectFit
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

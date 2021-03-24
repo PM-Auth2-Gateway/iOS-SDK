@@ -10,17 +10,21 @@ import AuthenticationServices
 
 class PMSocialsViewController: PMDataLoadingViewController {
     
+    private var availableServices: AvailableServices?
+    private var deepLinkingScheme: String?
+    private var appId: Int?
     private let containerView = PMContainerView()
     private let titleLabel = PMTitleLabel(textAlignment: .center, fontSize: 20)
     private let tableView = PMSocialsTableView()
     private let actionButton = PMButton(backgroundColor: .systemRed, title: "Cancel")
-    private var availableServices: AvailableServices?
     
     private let padding: CGFloat = 20
     
-    init(availableServices: AvailableServices) {
+    init(availableServices: AvailableServices, appId: Int, deepLinkingScheme: String) {
         super.init(nibName: nil, bundle: nil)
         self.availableServices = availableServices
+        self.appId = appId
+        self.deepLinkingScheme = deepLinkingScheme
         modalPresentationStyle = .overFullScreen
         modalTransitionStyle = .crossDissolve
     }
@@ -122,17 +126,36 @@ extension PMSocialsViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        let session = ASWebAuthenticationSession(url: URL(string: "https://net-api-hbyuu.ondigitalocean.app/WeatherForecast/test")!, callbackURLScheme: "pmacademy") { (url, error) in
-            guard error == nil else {
-                print(error!)
-                return
+        guard let availableServices = availableServices, let appId = appId else { return }
+        showLoadingView()
+        let socialId = availableServices.socials[indexPath.section].id
+        NetworkService.shared.getLinkComponents(byAppId: appId, socialId: socialId, device: "mobile") { componentsResult in
+            self.dismissLoadingView()
+            do {
+                let components = try componentsResult.get()
+                guard let url = LinkParser.getSocialUrl(from: components) else { throw "Error" }
+                let session = ASWebAuthenticationSession(url: url, callbackURLScheme: self.deepLinkingScheme) { (url, error) in
+                    guard error == nil else {
+                        print(error!)
+                        return
+                    }
+                    self.showLoadingView()
+                }
+                session.presentationContextProvider = self
+                DispatchQueue.main.async {
+                    session.start()
+                }
             }
-//            обработать url
+            catch {
+                DispatchQueue.main.async {
+                    let alertVC = PMAlertViewController(title: "Something went wrong", message: "An error happened. Please try again.", buttonTitle: "OK")
+                
+                    self.present(alertVC, animated: true, completion: nil)
+                }
+            }
+            
+            //            обработать url
         }
-
-        session.presentationContextProvider = self
-        session.start()
     }
 }
 
