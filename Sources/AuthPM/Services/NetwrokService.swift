@@ -32,13 +32,18 @@ class NetworkService {
     }
     
     func linkRequest(byAppId: String, then: @escaping URLComponents) {
+        
+//        let encoder = JSONEncoder()
+//        let components = ComponentsForService(components: [])
+//        let data = try? encoder.encode(components)
+//        let string = String(data: data, encoding: UTF8)
+        
         let url = URL(string: urlForLink)!
         let resource = Resource(url: url,
                                 requestMethod: .POST(requestBody: ["social_id" : "1"]),
                                 headers: ["App_id" : "1"],
-                                decodingType: URLComponentsForService.self,
+                                decodingType: URLComponentsForService,
                                 customResponseCodeHandler: nil)
         networking.networkCall(with: resource, then: then)
-        print(resource)
     }
 }
