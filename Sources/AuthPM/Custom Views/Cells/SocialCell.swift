@@ -11,6 +11,7 @@ class SocialCell: UITableViewCell {
     
     static let reuseIdentifier = "socialCell"
     
+    private let backView = UIView()
     private let logoImageView = UIImageView()
     private let titleLabel = PMTitleLabel(textAlignment: .left, fontSize: 15)
     private let padding: CGFloat = 5
@@ -34,14 +35,27 @@ class SocialCell: UITableViewCell {
     }
     
     private func configure() {
+        contentView.backgroundColor = .black
+        backView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(backView)
+//        contentView.sendSubviewToBack(backView)
         selectionStyle = .none
-        contentView.layer.cornerRadius = 5
-        contentView.addSubviews(logoImageView, titleLabel)
-        contentView.backgroundColor = .systemGray5
+        backView.layer.cornerRadius = 5
+        backView.addSubviews(logoImageView, titleLabel)
+        backView.backgroundColor = #colorLiteral(red: 0.07836129516, green: 0.08116482943, blue: 0.08142057806, alpha: 1)
+//        backView.backgroundColor = #colorLiteral(red: 0.07836129516, green: 0.08116482943, blue: 0.08142057806, alpha: 1)
+//        #colorLiteral(red: 0.06590328366, green: 0.06826213747, blue: 0.06847561896, alpha: 1)
+            
+        titleLabel.textColor = .white
         logoImageView.contentMode = .scaleAspectFit
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
+            backView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            backView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            backView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            backView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            
             logoImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
             logoImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
             logoImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding),
@@ -51,5 +65,6 @@ class SocialCell: UITableViewCell {
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
             titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
+        
     }
 }

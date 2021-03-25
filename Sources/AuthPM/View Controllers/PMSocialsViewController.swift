@@ -14,10 +14,9 @@ class PMSocialsViewController: PMDataLoadingViewController {
     private var deepLinkingScheme: String?
     private var appId: Int?
     private let containerView = PMContainerView()
-    private let titleLabel = PMTitleLabel(textAlignment: .center, fontSize: 20)
+    private let pmLogo = UIImageView()
     private let tableView = PMSocialsTableView()
-    private let actionButton = PMButton(backgroundColor: .systemRed, title: "Cancel")
-    private var state: String?
+    private let actionButton = PMButton(backgroundColor: .yellow, title: "Cancel")
     
     private let padding: CGFloat = 20
     
@@ -37,15 +36,17 @@ class PMSocialsViewController: PMDataLoadingViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.black.withAlphaComponent(0.75)
-        view.addSubviews(containerView, titleLabel, tableView, actionButton)
+        view.addSubviews(containerView, pmLogo, tableView, actionButton)
         
         configureContainerView()
-        configureTitleLabel()
+        configurePmLogo()
         configureTableView()
         configureActionButton()
     }
     
     private func configureContainerView() {
+        containerView.backgroundColor = .black
+        containerView.layer.borderColor = UIColor.yellow.cgColor
         NSLayoutConstraint.activate([
             containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -54,14 +55,16 @@ class PMSocialsViewController: PMDataLoadingViewController {
         ])
     }
     
-    private func configureTitleLabel() {
-        titleLabel.text = "Select a Service"
+    private func configurePmLogo() {
+        pmLogo.image = PMImages.pm
+        pmLogo.translatesAutoresizingMaskIntoConstraints = false
+        pmLogo.contentMode = .scaleAspectFit
         
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: padding),
-            titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding),
-            titleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
-            titleLabel.heightAnchor.constraint(equalToConstant: 28)
+            pmLogo.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10),
+            pmLogo.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding),
+            pmLogo.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
+            pmLogo.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     
@@ -70,7 +73,7 @@ class PMSocialsViewController: PMDataLoadingViewController {
         tableView.dataSource = self
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15),
+            tableView.topAnchor.constraint(equalTo: pmLogo.bottomAnchor, constant: 15),
             tableView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding),
             tableView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
             tableView.bottomAnchor.constraint(equalTo: actionButton.topAnchor, constant: -15)
@@ -78,6 +81,7 @@ class PMSocialsViewController: PMDataLoadingViewController {
     }
     
     private func configureActionButton() {
+        actionButton.setTitleColor(.black, for: .normal)
         actionButton.addTarget(self, action: #selector(dismissVC), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
@@ -122,14 +126,14 @@ extension PMSocialsViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let availableServices = availableServices, let appId = appId else { return }
+        guard let availableServices = availableServices, let appId = appId, let deepLinkingScheme = deepLinkingScheme else { return }
         showLoadingView()
         let socialId = availableServices.socials[indexPath.section].id
-        NetworkService.shared.getLinkComponents(byAppId: appId, socialId: socialId, device: "mobile") { componentsResult in
+        NetworkService.shared.getLinkComponents(byAppId: appId, socialId: socialId, device: "\(deepLinkingScheme)://") { componentsResult in
             self.dismissLoadingView()
             do {
                 let components = try componentsResult.get()
-                self.state = components.state
+                let state = components.state
                 guard let url = LinkParser.getSocialUrl(from: components) else { throw "Error" }
                 let session = ASWebAuthenticationSession(url: url, callbackURLScheme: self.deepLinkingScheme) { (url, error) in
                     guard error == nil else {
@@ -138,6 +142,18 @@ extension PMSocialsViewController: UITableViewDelegate, UITableViewDataSource {
                         return
                     }
                     self.showLoadingView()
+                    NetworkService.shared.getUserProfile(byAppId: appId, state: state) { profileResult in
+                        self.dismissLoadingView()
+                        switch profileResult {
+                        case .failure(let error):
+                            print(error)
+                        case .success(let userProfile):
+                            print(userProfile.email ?? "")
+                        }
+                        DispatchQueue.main.async {
+                            self.dismiss(animated: true, completion: nil)
+                        }
+                    }
                     
                 }
                 session.presentationContextProvider = self

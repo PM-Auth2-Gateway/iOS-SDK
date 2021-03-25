@@ -21,7 +21,7 @@ struct URLComponentsForService: Codable {
     enum CodingKeys: String, CodingKey {
         case authUri = "auth_uri"
         case redirectUri = "redirect_uri"
-        case responseType = "responce_type"
+        case responseType = "response_type"
         case clientId = "client_id"
         case scope
         case state

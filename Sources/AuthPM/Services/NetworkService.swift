@@ -28,6 +28,7 @@ class NetworkService: APIProvider {
     private let networking = PMNetworking()
     private let urlString = "https://net-api-hbyuu.ondigitalocean.app/Socials"
     private let urlForLink = "https://net-api-hbyuu.ondigitalocean.app/Socials/auth-link"
+    private let urlForProfile = "https://net-api-hbyuu.ondigitalocean.app/Profile/info"
     
     private init () {}
 
@@ -52,6 +53,16 @@ class NetworkService: APIProvider {
         let resource = Resource(url: url, requestMethod: .POST(requestBody: ["social_id" : socialId, "device" : device]), headers: ["App_id" : String(appId), "Content-Type" : "application/json"], decodingType: URLComponentsForService.self, customResponseCodeHandler: nil)
         networking.networkCall(with: resource, then: then)
     }
+    
+    func getUserProfile(byAppId appId: Int, state: String, then: @escaping (Result<UserProfile, PMNetworkingError>) -> Void) {
+        guard let url = URL(string: urlForProfile) else {
+            then(.failure(.unableToComplete))
+            return
+        }
+        let resource = Resource(url: url, requestMethod: .POST(requestBody: ["session_id": state]), headers: ["App_id" : String(appId), "Content-Type" : "application/json"], decodingType: UserProfile.self, customResponseCodeHandler: nil)
+        networking.networkCall(with: resource, then: then)
+    }
+    
 }
 
 

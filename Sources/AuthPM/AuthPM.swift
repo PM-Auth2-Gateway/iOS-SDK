@@ -1,6 +1,10 @@
 import UIKit
 import PMNetworking
 
+public protocol AuthPMDelegate: class {
+    func didFinishAuthorization(with: UserProfile?)
+}
+
 public class AuthPM {
     
     private let appId: Int
@@ -9,6 +13,7 @@ public class AuthPM {
     private var urlComponentsResponse: Result<URLComponentsForService, PMNetworkingError>?
     private let authButton = PMButton(backgroundColor: .orange, title: "Sign In with PM")
     weak private var hostingViewController: UIViewController?
+    weak private var delegate: AuthPMDelegate?
     
     public init(appId: Int, deepLinkingScheme: String) {
         self.appId = appId

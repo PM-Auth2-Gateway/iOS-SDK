@@ -15,6 +15,7 @@ class PMSocialsTableView: UITableView {
         rowHeight = 60
         tableFooterView = UIView(frame: .zero)
         separatorStyle = .none
+        backgroundColor = .black
         translatesAutoresizingMaskIntoConstraints = false
     }
     
