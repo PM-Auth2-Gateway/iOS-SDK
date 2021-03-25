@@ -18,13 +18,11 @@ public class PMButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     public convenience init(backgroundColor: UIColor, title: String) {
         self.init(frame: .zero)
         self.backgroundColor = backgroundColor
         self.setTitle(title, for: .normal)
     }
-    
     
     private func configure() {
         layer.cornerRadius = 10

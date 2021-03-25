@@ -6,6 +6,7 @@ public class AuthPM {
     private let appId: Int
     private let deepLinkingScheme: String
     private var availableServicesResponse: Result<AvailableServices, PMNetworkingError>?
+    private var urlComponentsResponse: Result<URLComponentsForService, PMNetworkingError>?
     private let authButton = PMButton(backgroundColor: .orange, title: "Sign In with PM")
     weak private var hostingViewController: UIViewController?
     
@@ -34,11 +35,11 @@ public class AuthPM {
                 let socialsViewController = PMSocialsViewController(availableServices: services, appId: appId, deepLinkingScheme: deepLinkingScheme)
                 hostingViewController?.present(socialsViewController, animated: true, completion: nil)
             } else {
-                let alertVC = PMAlertViewController(title: "Error", message: "This app doesn't support any services to log in with.", buttonTitle: "Ok")
+                let alertVC = PMAlertViewController(title: "Error", message: "This app doesn't support any services to log in with.", buttonTitle: "OK")
                 hostingViewController?.present(alertVC, animated: true, completion: nil)
             }
         case .failure(let error):
-            let alertVC = PMAlertViewController(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
+            let alertVC = PMAlertViewController(title: "Error", message: error.rawValue, buttonTitle: "OK")
             hostingViewController?.present(alertVC, animated: true, completion: nil)
         case .none:
             return

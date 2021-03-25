@@ -45,7 +45,6 @@ class PMSocialsViewController: PMDataLoadingViewController {
         configureActionButton()
     }
     
-    
     private func configureContainerView() {
         NSLayoutConstraint.activate([
             containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
@@ -54,7 +53,6 @@ class PMSocialsViewController: PMDataLoadingViewController {
             containerView.heightAnchor.constraint(equalToConstant: 310)
         ])
     }
-    
     
     private func configureTitleLabel() {
         titleLabel.text = "Select a Service"
@@ -66,7 +64,6 @@ class PMSocialsViewController: PMDataLoadingViewController {
             titleLabel.heightAnchor.constraint(equalToConstant: 28)
         ])
     }
-    
     
     private func configureTableView() {
         tableView.delegate = self
@@ -80,7 +77,6 @@ class PMSocialsViewController: PMDataLoadingViewController {
         ])
     }
     
-    
     private func configureActionButton() {
         actionButton.addTarget(self, action: #selector(dismissVC), for: .touchUpInside)
         
@@ -91,7 +87,6 @@ class PMSocialsViewController: PMDataLoadingViewController {
             actionButton.heightAnchor.constraint(equalToConstant: 44)
         ])
     }
-    
     
     @objc private func dismissVC() {
         dismiss(animated: true)

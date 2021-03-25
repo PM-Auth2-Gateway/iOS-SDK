@@ -37,7 +37,6 @@ class PMDataLoadingViewController: UIViewController {
         }
     }
 
-    
     func dismissLoadingView() {
         DispatchQueue.main.async {
             self.activityContainerView.removeFromSuperview()

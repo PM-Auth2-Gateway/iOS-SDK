@@ -14,11 +14,9 @@ class PMTitleLabel: UILabel {
         configure()
     }
     
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     convenience init(textAlignment: NSTextAlignment, fontSize: CGFloat) {
         self.init(frame: .zero)
@@ -26,9 +24,10 @@ class PMTitleLabel: UILabel {
         self.font = UIFont.systemFont(ofSize: fontSize, weight: .bold)
     }
     
-    
     private func configure() {
-        textColor = .label
+        if #available(iOS 13.0, *) {
+            textColor = .label
+        }
         adjustsFontSizeToFitWidth = true
         minimumScaleFactor = 0.9
         lineBreakMode = .byTruncatingTail

@@ -7,6 +7,7 @@
 
 import Foundation
 import SafariServices
+import AuthenticationServices
 
 class SafariLoginView: UIViewController, SFSafariViewControllerDelegate {
     
