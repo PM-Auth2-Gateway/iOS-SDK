@@ -18,11 +18,6 @@ public class AuthPM {
             guard let self = self else { return }
             self.availableServicesResponse = availableServicesResponse
         }
-        
-        NetworkService.shared.linkRequest(byAppId: appId) { [weak self] urlComponentsResponse in
-            guard let self = self else { return }
-            self.urlComponentsResponse = urlComponentsResponse
-        }
     }
     
     
