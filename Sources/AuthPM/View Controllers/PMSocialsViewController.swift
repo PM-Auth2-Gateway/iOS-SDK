@@ -17,6 +17,7 @@ class PMSocialsViewController: PMDataLoadingViewController {
     private let titleLabel = PMTitleLabel(textAlignment: .center, fontSize: 20)
     private let tableView = PMSocialsTableView()
     private let actionButton = PMButton(backgroundColor: .systemRed, title: "Cancel")
+    private var state: String?
     
     private let padding: CGFloat = 20
     
@@ -133,13 +134,16 @@ extension PMSocialsViewController: UITableViewDelegate, UITableViewDataSource {
             self.dismissLoadingView()
             do {
                 let components = try componentsResult.get()
+                self.state = components.state
                 guard let url = LinkParser.getSocialUrl(from: components) else { throw "Error" }
                 let session = ASWebAuthenticationSession(url: url, callbackURLScheme: self.deepLinkingScheme) { (url, error) in
                     guard error == nil else {
-                        print(error!)
+                        let alertVC = PMAlertViewController(title: "Authentication Error", message: "Authentication was interrupted. Please try again", buttonTitle: "OK")
+                        self.present(alertVC, animated: true, completion: nil)
                         return
                     }
                     self.showLoadingView()
+                    
                 }
                 session.presentationContextProvider = self
                 DispatchQueue.main.async {
