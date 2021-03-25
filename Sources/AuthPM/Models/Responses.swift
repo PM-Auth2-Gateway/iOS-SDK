@@ -9,43 +9,33 @@ import Foundation
 
 // MARK: Get available services to authenticate
 
-struct AvailableServices {
-    let services: [Service]
+struct AvailableServices: Codable {
+    let socials: [Social]
 }
 
-struct Service {
-    let id: String
+struct Social: Codable {
+    let id: Int
     let name: String
 }
 
 // MARK: Get URL parts to get token from the Service
 
-struct URLComponentsForService {
+struct LinkComponents: Codable {
     
-    let redirectUrl: String
-    let prompt: String
-//    “prompt”: “consent”,
-    
+    let authUri: String
+    let redirectUri: String
     let responseType: String
-//    “response_type”: “code”,
-    
     let clientId: String
-//    "client_id": “*******”,
-    
+    let state: String
     let scope: String
-//    “scope”: “****”,
-    
-    let accessType: String
-//    “access_type”: “*****” //???? для чого? почитати
-    
     
     enum CodingKeys: String, CodingKey {
-        case redirectUrl = "auth_uri"
-        case prompt
-        case responseType = "responce_type"
+        case authUri = "auth_uri"
+        case redirectUri = "redirect_uri"
+        case responseType = "response_type"
         case clientId = "client_id"
         case scope
-        case accessType = "access_type"
+        case state
     }
 }
 
