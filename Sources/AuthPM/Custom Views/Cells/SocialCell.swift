@@ -40,6 +40,7 @@ class SocialCell: UITableViewCell {
         contentView.backgroundColor = .systemGray5
         logoImageView.contentMode = .scaleAspectFit
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             logoImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
             logoImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),

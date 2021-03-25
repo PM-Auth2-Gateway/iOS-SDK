@@ -12,7 +12,7 @@ class PMAlertViewController: UIViewController {
     private let containerView = PMContainerView()
     private let titleLabel = PMTitleLabel(textAlignment: .center, fontSize: 20)
     private let messageLabel = PMBodyLabel(textAlignment: .center)
-    private let actionButton = PMButton(backgroundColor: .systemPink, title: "Ok")
+    private let actionButton = PMButton(backgroundColor: .systemPink, title: "OK")
     
     private var alertTitle: String?
     private var message: String?
@@ -29,11 +29,9 @@ class PMAlertViewController: UIViewController {
         modalTransitionStyle = .crossDissolve
     }
     
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +44,6 @@ class PMAlertViewController: UIViewController {
         configureMessageLabel()
     }
     
-    
     private func configureContainerView() {
         NSLayoutConstraint.activate([
             containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
@@ -55,7 +52,6 @@ class PMAlertViewController: UIViewController {
             containerView.heightAnchor.constraint(equalToConstant: 220)
         ])
     }
-    
     
     private func configureTitleLabel() {
         titleLabel.text = alertTitle ?? "Something went wrong"
@@ -67,7 +63,6 @@ class PMAlertViewController: UIViewController {
             titleLabel.heightAnchor.constraint(equalToConstant: 28)
         ])
     }
-    
     
     private func configureActionButton() {
         actionButton.setTitle(buttonTitle ?? "Ok", for: .normal)
@@ -81,7 +76,6 @@ class PMAlertViewController: UIViewController {
         ])
     }
     
-    
     private func configureMessageLabel() {
         messageLabel.text = message ?? "Unable to complete request"
         messageLabel.numberOfLines = 4
@@ -93,7 +87,6 @@ class PMAlertViewController: UIViewController {
             messageLabel.bottomAnchor.constraint(equalTo: actionButton.topAnchor, constant: -12)
         ])
     }
-    
     
     @objc private func dismissVC() {
         dismiss(animated: true)

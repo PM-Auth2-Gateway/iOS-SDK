@@ -9,10 +9,6 @@ import Foundation
 
 // MARK: Get URL parts to get token from the Service
 
-struct ComponentsForService: Codable {
-    let components: [URLComponentsForService]
-}
-
 struct URLComponentsForService: Codable {
     
     let authUri: String
