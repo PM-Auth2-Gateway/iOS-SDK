@@ -16,5 +16,5 @@ struct Social: Codable {
     let name: String
     let authUri: String
     let tokenUrl: String
-    let logoPath: String
+    let logoPath: String?
 }

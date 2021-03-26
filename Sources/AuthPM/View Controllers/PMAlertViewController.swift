@@ -55,6 +55,7 @@ class PMAlertViewController: UIViewController {
     
     private func configureTitleLabel() {
         titleLabel.text = alertTitle ?? "Something went wrong"
+        titleLabel.textColor = UIColor.white
         
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: padding),
@@ -79,6 +80,7 @@ class PMAlertViewController: UIViewController {
     private func configureMessageLabel() {
         messageLabel.text = message ?? "Unable to complete request"
         messageLabel.numberOfLines = 4
+        messageLabel.textColor = UIColor.white
         
         NSLayoutConstraint.activate([
             messageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),

@@ -143,6 +143,7 @@ extension PMSocialsViewController: UITableViewDelegate, UITableViewDataSource {
                     }
                     self.showLoadingView()
                     NetworkService.shared.getUserProfile(byAppId: appId, state: state) { profileResult in
+                        print("Hello")
                         self.dismissLoadingView()
                         switch profileResult {
                         case .failure(let error):

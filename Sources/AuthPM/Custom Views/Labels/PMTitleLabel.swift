@@ -23,9 +23,7 @@ class PMTitleLabel: UILabel {
         self.textAlignment = textAlignment
         self.font = UIFont.systemFont(ofSize: fontSize, weight: .bold)
     }
-}
-
-extension PMTitleLabel {
+    
     private func configure() {
         if #available(iOS 13.0, *) {
             textColor = .label

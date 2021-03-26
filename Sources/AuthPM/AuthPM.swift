@@ -6,14 +6,11 @@ public protocol AuthPMDelegate: class {
 }
 
 public class AuthPM {
-    
     private let appId: Int
     private let deepLinkingScheme: String
     private var availableServicesResponse: Result<AvailableServices, PMNetworkingError>?
     private var urlComponentsResponse: Result<URLComponentsForService, PMNetworkingError>?
-    private let authButton = PMAuthButton(backgroundColor: .yellow,
-                                          title: "Sign in with PMAuth",
-                                          image: PMImages.pmLogoForAuthButton)
+    private let authButton = PMAuthButton()
     weak private var hostingViewController: UIViewController?
     weak private var delegate: AuthPMDelegate?
     
@@ -27,13 +24,11 @@ public class AuthPM {
         }
     }
     
-    
     public func getAuthButton(toPresentInViewController hostingViewController: UIViewController) -> PMAuthButton {
         self.hostingViewController = hostingViewController
         authButton.addTarget(self, action: #selector(authButtonAction), for: .touchUpInside)
         return authButton
     }
-    
     
     @objc private func authButtonAction() {
         switch availableServicesResponse {

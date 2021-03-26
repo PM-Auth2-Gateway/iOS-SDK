@@ -17,14 +17,12 @@ class PMContainerView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-}
 
-extension PMContainerView {
     private func configure() {
-        backgroundColor = .systemBackground
+        backgroundColor = .black
         layer.cornerRadius = 16
         layer.borderWidth = 2
-        layer.borderColor = UIColor.white.cgColor
+        layer.borderColor = UIColor.yellow.cgColor
         translatesAutoresizingMaskIntoConstraints = false
     }
 }

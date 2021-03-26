@@ -22,9 +22,7 @@ class PMBodyLabel: UILabel {
         self.init(frame: .zero)
         self.textAlignment = textAlignment
     }
-}
-
-extension PMBodyLabel {
+    
     private func configure() {
         textColor = .secondaryLabel
         adjustsFontForContentSizeCategory = true

@@ -9,7 +9,7 @@ import UIKit
 
 public class PMButton: UIButton {
     
-    public override init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
     }
@@ -18,14 +18,12 @@ public class PMButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public convenience init(backgroundColor: UIColor, title: String) {
+    convenience init(backgroundColor: UIColor, title: String) {
         self.init(frame: .zero)
         self.backgroundColor = backgroundColor
         self.setTitle(title, for: .normal)
     }
-}
 
-extension PMButton {
     private func configure() {
         layer.cornerRadius = 10
         titleLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
@@ -33,4 +31,5 @@ extension PMButton {
         translatesAutoresizingMaskIntoConstraints = false
     }
 }
+
 

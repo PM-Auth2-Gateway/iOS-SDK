@@ -9,7 +9,7 @@ import UIKit
 
 public class PMAuthButton: UIButton {
     
-    public override init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
     }
@@ -17,14 +17,20 @@ public class PMAuthButton: UIButton {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    public convenience init(backgroundColor: UIColor, title: String, image: UIImage) {
-        self.init(frame: .zero)
-        self.backgroundColor = backgroundColor
-        self.setTitle(title, for: .normal)
+
+    private func configure() {
+        layer.cornerRadius = 10
+        layer.borderWidth = 3
+        layer.borderColor = UIColor.black.cgColor
+        titleLabel?.font = UIFont.preferredFont(forTextStyle: .title3)
+        setTitleColor(.black, for: .normal)
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        self.backgroundColor = .yellow
+        self.setTitle("Sign In with PMAuth", for: .normal)
         self.contentEdgeInsets = UIEdgeInsets(top: 0, left: 35, bottom: 0, right: 0)
         
-        let imageView = UIImageView(image: image)
+        let imageView = UIImageView(image: PMImages.pmLogoForAuthButton)
         addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
@@ -35,17 +41,6 @@ public class PMAuthButton: UIButton {
             imageView.heightAnchor.constraint(equalToConstant: 40),
             imageView.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
-    }
-}
-
-extension PMAuthButton {
-    private func configure() {
-        layer.cornerRadius = 10
-        layer.borderWidth = 3
-        layer.borderColor = UIColor.black.cgColor
-        titleLabel?.font = UIFont.preferredFont(forTextStyle: .title3)
-        setTitleColor(.black, for: .normal)
-        translatesAutoresizingMaskIntoConstraints = false
     }
 }
 
