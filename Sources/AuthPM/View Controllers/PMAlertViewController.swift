@@ -12,7 +12,7 @@ class PMAlertViewController: UIViewController {
     private let containerView = PMContainerView()
     private let titleLabel = PMTitleLabel(textAlignment: .center, fontSize: 20)
     private let messageLabel = PMBodyLabel(textAlignment: .center)
-    private let actionButton = PMButton(backgroundColor: .systemPink, title: "OK")
+    private let actionButton = PMButton(backgroundColor: .yellow, title: "OK")
     
     private var alertTitle: String?
     private var message: String?

@@ -23,11 +23,14 @@ public class PMButton: UIButton {
         self.backgroundColor = backgroundColor
         self.setTitle(title, for: .normal)
     }
-    
+}
+
+extension PMButton {
     private func configure() {
         layer.cornerRadius = 10
         titleLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
-        setTitleColor(.white, for: .normal)
+        setTitleColor(.black, for: .normal)
         translatesAutoresizingMaskIntoConstraints = false
     }
 }
+

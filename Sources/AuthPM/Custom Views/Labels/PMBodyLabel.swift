@@ -8,7 +8,7 @@
 import UIKit
 
 class PMBodyLabel: UILabel {
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -22,7 +22,9 @@ class PMBodyLabel: UILabel {
         self.init(frame: .zero)
         self.textAlignment = textAlignment
     }
-    
+}
+
+extension PMBodyLabel {
     private func configure() {
         textColor = .secondaryLabel
         adjustsFontForContentSizeCategory = true

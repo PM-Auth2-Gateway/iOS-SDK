@@ -24,7 +24,7 @@ let package = Package(
         .target(
             name: "AuthPM",
             dependencies: ["PMNetworking"],
-            resources: [.process("Images/facebook.png"), .process("Images/google.png"), .process("Images/pm.png")]),
+            resources: [.process("Images/facebook.png"), .process("Images/google.png"), .process("Images/pm.png"), .process("Images/pmlogo.png")]),
         .testTarget(
             name: "AuthPMTests",
             dependencies: ["AuthPM"]),
