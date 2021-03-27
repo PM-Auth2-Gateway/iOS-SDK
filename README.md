@@ -17,11 +17,10 @@ Insert url of this SPM in you XCode Project with `Open -> Swift Package -> Add P
 ``` swift
 let authPM = AuthPM(appId: 'YOUR_APP_ID', deepLinkingScheme: 'YOUR_URL_SCHEME')
 ```
-After all of this operations call:
+After all of this operations call this function in your ViewController `viewDidLoad`.
 ``` swift
 AuthPM.getAuthButton()
 ```
-function in your ViewController `viewDidLoad` function.
 
 ## Details
 
