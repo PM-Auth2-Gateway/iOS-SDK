@@ -13,8 +13,8 @@ Main View                  |  Second Screen View
 
 ## Installation
 
-- Insert url of this SPM in you XCode Project with `Open -> Swift Package -> Add Package Dependency`.  
-Import this library to you `ViewController` with:
+- Insert url of this SPM in your XCode Project with `Open → Swift Package → Add Package Dependency`.  
+Import this library to your `ViewController` with:
 ``` swift
 import AuthPM
 ```
