@@ -21,5 +21,13 @@ Insert url of this SPM in you XCode Project with `Open -> Swift Package -> Add P
 
 This implementation uses `ASWebAuthenticationSession` to securely show a web view pointing to the Facebook and Google.
 
+## Dependencies
+
+- PMNetworking: unique Networking SPM
+- XCode 12.4
+- Swift 5.4
+
+
+
 
 
