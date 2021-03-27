@@ -33,7 +33,7 @@ This implementation uses `ASWebAuthenticationSession` to securely show a web vie
 
 ## Dependencies
 
-- [PMNetworking](https://github.com/gr-yarik/PMNetworking) —— unique Networking Library (Swift Package)
+- [PMNetworking](https://github.com/gr-yarik/PMNetworking) — unique Networking Library (Swift Package)
 - XCode 12.4
 - Swift 5.4
 
