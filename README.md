@@ -13,7 +13,11 @@ Main View                  |  Second Screen View
 
 ## Installation
 
-Insert url of this SPM in you XCode Project with `Open -> Swift Package -> Add Package Dependency`. Import this library to you `ViewController` with `import AuthPM` and then you should initiate an instance - `let authPM = AuthPM(appId: 'YOUR_APP_ID', deepLinkingScheme: 'YOUR_URL_SCHEME')`. After all of this operations call `AuthPM.getAuthButton` function in your ViewController `viewDidLoad` function.
+Insert url of this SPM in you XCode Project with `Open -> Swift Package -> Add Package Dependency`. Import this library to you `ViewController` with `import AuthPM` and then you should initiate an instance:
+``` swift
+let authPM = AuthPM(appId: 'YOUR_APP_ID', deepLinkingScheme: 'YOUR_URL_SCHEME')
+```
+After all of this operations call `AuthPM.getAuthButton` function in your ViewController `viewDidLoad` function.
 
 ## Details
 
