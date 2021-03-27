@@ -21,7 +21,7 @@ This implementation uses `ASWebAuthenticationSession` to securely show a web vie
 
 ## Dependencies
 
-- PMNetworking: unique Networking SPM
+- [PMNetworking](https://github.com/gr-yarik/PMNetworking): unique Networking SPM
 - XCode 12.4
 - Swift 5.4
 
