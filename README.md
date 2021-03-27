@@ -1,5 +1,12 @@
 # AuthPM
 
-Auth 2.0 Gateway для авторизации в социальные сети
+Created by Kononenko Yevhen and Hrytsun Yaroslav.
 
-Библиотека для Swift
+Flexible Swift Package Manager for Google/Facebook Authorization.
+We create this SPM without Google and Facebook SDK.
+
+## Details
+
+This implementation uses '''ASWebAuthenticationSession''' to securely show a web view pointing to the 
+
+
