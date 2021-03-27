@@ -15,7 +15,7 @@ We create this SPM without Google and Facebook SDK.
 
 ## Installation
 
-Insert url of this SPM in you XCode Project with `Open -> Swift Package -> Add Package Dependency`. Import this library to you `ViewController` with `import AuthPM` and then you should initiate an instance - `let authPM = AuthPM(appId: 'YOUR_APP_ID', deepLinkingScheme: 'YOUR_URL_SCHEME')`
+Insert url of this SPM in you XCode Project with `Open -> Swift Package -> Add Package Dependency`. Import this library to you `ViewController` with `import AuthPM` and then you should initiate an instance - `let authPM = AuthPM(appId: 'YOUR_APP_ID', deepLinkingScheme: 'YOUR_URL_SCHEME')`. After all of this operations call `AuthPM.getAuthButton` function in your ViewController `viewDidLoad` function.
 
 ## Details
 
