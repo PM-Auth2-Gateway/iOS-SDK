@@ -7,6 +7,6 @@ We create this SPM without Google and Facebook SDK.
 
 ## Details
 
-This implementation uses <ASWebAuthenticationSession> to securely show a web view pointing to the 
+This implementation uses <span style="color:orange;">Word up</span> to securely show a web view pointing to the 
 
 
