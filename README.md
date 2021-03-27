@@ -5,7 +5,7 @@ Created by Kononenko Yevhen and Hrytsun Yaroslav.
 Flexible Swift Package Manager for Google/Facebook Authorization.
 We create this SPM without Google and Facebook SDK.
 
-![](http://i.piccy.info/i9/d8c9c35fab5b2e19160965c134275fcb/1616874008/19243/1422865/pmauthbuttonscreen.jpg)
+![](http://i.piccy.info/i9/612821a7a18987667200dc03915f8894/1616874301/41106/1422865/pmauthbuttonscr.jpg)
 
 ## Installation
 
