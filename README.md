@@ -2,7 +2,7 @@
 
 ***Created by Kononenko Yevhen and Hrytsun Yaroslav***
 
-Flexible Swift Package Manager for Google/Facebook Authorization.
+Flexible Swift Package Manager for Google/Facebook Authorization.  
 We create this SPM without Google and Facebook SDK.
 
 ## Screenshots
@@ -13,7 +13,8 @@ Main View                  |  Second Screen View
 
 ## Installation
 
-- Insert url of this SPM in you XCode Project with `Open -> Swift Package -> Add Package Dependency`. Import this library to you `ViewController` with:
+- Insert url of this SPM in you XCode Project with `Open -> Swift Package -> Add Package Dependency`.  
+Import this library to you `ViewController` with:
 ``` swift
 import AuthPM
 ```
