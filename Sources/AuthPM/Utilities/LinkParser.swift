@@ -14,7 +14,7 @@ enum LinkParser {
             + "&redirect_uri=\(components.redirectUri)"
             + "&scope=\(components.scope.split(separator: " ").joined(separator: "+"))"
             + "&response_type=\(components.responseType)"
-            + "&state=\(components.state)"        
+            + "&state=\(components.state)"
         return URL(string: urlString)
     }
 }

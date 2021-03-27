@@ -18,9 +18,9 @@ public class PMButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(backgroundColor: UIColor, title: String) {
+    convenience init(title: String) {
         self.init(frame: .zero)
-        self.backgroundColor = backgroundColor
+        self.backgroundColor = .yellow
         self.setTitle(title, for: .normal)
     }
 

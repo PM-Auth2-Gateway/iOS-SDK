@@ -16,12 +16,12 @@ protocol APIProvider {
     typealias URLComponentsCompletion = Completion<URLComponentsForService>
     typealias UserProfileCompletion = Completion<UserProfile>
     
-    func getServiceList(byAppId appId: Int, completion: @escaping AvailableServicesCompletion)
+    func getServiceList(byAppId appId: Int, then: @escaping AvailableServicesCompletion)
     
     func getLinkComponents(byAppId appId: Int,
                  socialId: Int,
-                 device: String,
-                 completion: @escaping URLComponentsCompletion)
+                 scheme: String,
+                 then: @escaping URLComponentsCompletion)
     
     func getUserProfile(byAppId appId: Int,
                         state: String,

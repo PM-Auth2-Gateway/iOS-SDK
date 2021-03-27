@@ -8,10 +8,10 @@
 import Foundation
 
 public struct UserProfile: Codable {
-    let id, firstName, lastName, email: String?
-    let isVerifiedEmail: Bool?
-    let photo, locale: String?
-    let additionalInformation: [String : String]?
+    
+    public let id, firstName, lastName, email, photo, locale: String?
+    public let isVerifiedEmail: Bool?
+    public let additionalInformation: [String : String]?
 }
 
 

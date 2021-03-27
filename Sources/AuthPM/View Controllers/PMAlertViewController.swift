@@ -12,7 +12,7 @@ class PMAlertViewController: UIViewController {
     private let containerView = PMContainerView()
     private let titleLabel = PMTitleLabel(textAlignment: .center, fontSize: 20)
     private let messageLabel = PMBodyLabel(textAlignment: .center)
-    private let actionButton = PMButton(backgroundColor: .yellow, title: "OK")
+    private let actionButton = PMButton(title: "OK")
     
     private var alertTitle: String?
     private var message: String?
@@ -66,7 +66,6 @@ class PMAlertViewController: UIViewController {
     }
     
     private func configureActionButton() {
-        actionButton.setTitle(buttonTitle ?? "Ok", for: .normal)
         actionButton.addTarget(self, action: #selector(dismissVC), for: .touchUpInside)
         
         NSLayoutConstraint.activate([

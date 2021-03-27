@@ -13,18 +13,32 @@ class PMSocialsViewController: PMDataLoadingViewController {
     private var availableServices: AvailableServices?
     private var deepLinkingScheme: String?
     private var appId: Int?
+    private var networkService: APIProvider?
+    
+    private var isLoading = false {
+        didSet {
+            DispatchQueue.main.async {
+                self.tableView.isUserInteractionEnabled = !self.isLoading
+            }
+        }
+    }
+    
     private let containerView = PMContainerView()
-    private let pmLogo = UIImageView()
+    private let pmLogoImageView = UIImageView()
     private let tableView = PMSocialsTableView()
-    private let actionButton = PMButton(backgroundColor: .yellow, title: "Cancel")
+    private let actionButton = PMButton(title: "Cancel")
+    
+    weak private var delegate: AuthPMDelegate?
     
     private let padding: CGFloat = 20
     
-    init(availableServices: AvailableServices, appId: Int, deepLinkingScheme: String) {
+    init(availableServices: AvailableServices, appId: Int, deepLinkingScheme: String, delegate: AuthPMDelegate, networkService: APIProvider) {
         super.init(nibName: nil, bundle: nil)
         self.availableServices = availableServices
         self.appId = appId
         self.deepLinkingScheme = deepLinkingScheme
+        self.delegate = delegate
+        self.networkService = networkService
         modalPresentationStyle = .overFullScreen
         modalTransitionStyle = .crossDissolve
     }
@@ -36,7 +50,7 @@ class PMSocialsViewController: PMDataLoadingViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.black.withAlphaComponent(0.75)
-        view.addSubviews(containerView, pmLogo, tableView, actionButton)
+        view.addSubviews(containerView, pmLogoImageView, tableView, actionButton)
         
         configureContainerView()
         configurePmLogo()
@@ -45,8 +59,6 @@ class PMSocialsViewController: PMDataLoadingViewController {
     }
     
     private func configureContainerView() {
-        containerView.backgroundColor = .black
-        containerView.layer.borderColor = UIColor.yellow.cgColor
         NSLayoutConstraint.activate([
             containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -56,15 +68,15 @@ class PMSocialsViewController: PMDataLoadingViewController {
     }
     
     private func configurePmLogo() {
-        pmLogo.image = PMImages.pm
-        pmLogo.translatesAutoresizingMaskIntoConstraints = false
-        pmLogo.contentMode = .scaleAspectFit
+        pmLogoImageView.image = PMImages.pm
+        pmLogoImageView.translatesAutoresizingMaskIntoConstraints = false
+        pmLogoImageView.contentMode = .scaleAspectFit
         
         NSLayoutConstraint.activate([
-            pmLogo.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10),
-            pmLogo.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding),
-            pmLogo.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
-            pmLogo.heightAnchor.constraint(equalToConstant: 40)
+            pmLogoImageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10),
+            pmLogoImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding),
+            pmLogoImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
+            pmLogoImageView.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     
@@ -73,7 +85,7 @@ class PMSocialsViewController: PMDataLoadingViewController {
         tableView.dataSource = self
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: pmLogo.bottomAnchor, constant: 15),
+            tableView.topAnchor.constraint(equalTo: pmLogoImageView.bottomAnchor, constant: 15),
             tableView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding),
             tableView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
             tableView.bottomAnchor.constraint(equalTo: actionButton.topAnchor, constant: -15)
@@ -81,7 +93,6 @@ class PMSocialsViewController: PMDataLoadingViewController {
     }
     
     private func configureActionButton() {
-        actionButton.setTitleColor(.black, for: .normal)
         actionButton.addTarget(self, action: #selector(dismissVC), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
@@ -93,7 +104,70 @@ class PMSocialsViewController: PMDataLoadingViewController {
     }
     
     @objc private func dismissVC() {
+        delegate?.didFinishAuthorization(with: nil)
         dismiss(animated: true)
+    }
+    
+    private func getLinkComponents(byAppId appId: Int, socialId: Int, scheme: String) {
+        guard let networkService = networkService else { return }
+        networkService.getLinkComponents(byAppId: appId, socialId: socialId, scheme: scheme) { [weak self] componentsResult in
+            guard let self = self else { return }
+            self.dismissLoadingView()
+            switch componentsResult {
+            case .success(let components):
+                self.parseComponentsResult(with: components)
+            case .failure(let error):
+                self.presentPMAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK", onController: self)
+                self.isLoading = false
+            }
+        }
+    }
+    
+    private func parseComponentsResult(with components: URLComponentsForService) {
+        guard let url = LinkParser.getSocialUrl(from: components), let scheme = deepLinkingScheme else {
+            presentPMAlertOnMainThread(title: "Something went wrong", message: "Invalid response from the server. Please try again.", buttonTitle: "OK", onController: self)
+            self.isLoading = false
+            return
+        }
+        initiateAuthenticationSession(withState: components.state, url: url, scheme: scheme)
+    }
+    
+    func initiateAuthenticationSession(withState state: String, url: URL, scheme: String) {
+        let session = ASWebAuthenticationSession(url: url, callbackURLScheme: scheme) { [weak self] url, error in
+            guard let self = self else { return }
+            guard error == nil else {
+                self.presentPMAlertOnMainThread(title: "Authentication Error", message: "Authentication was interrupted. Please try again", buttonTitle: "OK", onController: self)
+                self.isLoading = false
+                return
+            }
+            self.showLoadingView()
+            self.getUserProfile(withState: state)
+        }
+        session.presentationContextProvider = self
+        DispatchQueue.main.async {
+            session.start()
+        }
+    }
+    
+    func getUserProfile(withState state: String) {
+        guard let appId = appId, let networkService = networkService else { return }
+        networkService.getUserProfile(byAppId: appId, state: state) { [weak self] profileResult in
+            guard let self = self else { return }
+            self.dismissLoadingView()
+            switch profileResult {
+            case .failure(let error):
+                self.presentPMAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK", onController: self)
+            case .success(let userProfile):
+                DispatchQueue.main.async {
+                    self.delegate?.didFinishAuthorization(with: userProfile)
+                }
+            }
+            DispatchQueue.main.async {
+                self.dismiss(animated: true, completion: nil)
+            }
+            self.isLoading = false
+        }
+        
     }
 }
 
@@ -126,52 +200,12 @@ extension PMSocialsViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("PRESSED")
+        isLoading = true
         guard let availableServices = availableServices, let appId = appId, let deepLinkingScheme = deepLinkingScheme else { return }
         showLoadingView()
         let socialId = availableServices.socials[indexPath.section].id
-        NetworkService.shared.getLinkComponents(byAppId: appId, socialId: socialId, device: "\(deepLinkingScheme)://") { componentsResult in
-            self.dismissLoadingView()
-            do {
-                let components = try componentsResult.get()
-                let state = components.state
-                guard let url = LinkParser.getSocialUrl(from: components) else { throw "Error" }
-                let session = ASWebAuthenticationSession(url: url, callbackURLScheme: self.deepLinkingScheme) { (url, error) in
-                    guard error == nil else {
-                        let alertVC = PMAlertViewController(title: "Authentication Error", message: "Authentication was interrupted. Please try again", buttonTitle: "OK")
-                        self.present(alertVC, animated: true, completion: nil)
-                        return
-                    }
-                    self.showLoadingView()
-                    NetworkService.shared.getUserProfile(byAppId: appId, state: state) { profileResult in
-                        print("Hello")
-                        self.dismissLoadingView()
-                        switch profileResult {
-                        case .failure(let error):
-                            print(error)
-                        case .success(let userProfile):
-                            print(userProfile.email ?? "")
-                        }
-                        DispatchQueue.main.async {
-                            self.dismiss(animated: true, completion: nil)
-                        }
-                    }
-                    
-                }
-                session.presentationContextProvider = self
-                DispatchQueue.main.async {
-                    session.start()
-                }
-            }
-            catch {
-                DispatchQueue.main.async {
-                    let alertVC = PMAlertViewController(title: "Something went wrong", message: "An error happened. Please try again.", buttonTitle: "OK")
-                
-                    self.present(alertVC, animated: true, completion: nil)
-                }
-            }
-            
-            //            обработать url
-        }
+        getLinkComponents(byAppId: appId, socialId: socialId, scheme: deepLinkingScheme)
     }
 }
 

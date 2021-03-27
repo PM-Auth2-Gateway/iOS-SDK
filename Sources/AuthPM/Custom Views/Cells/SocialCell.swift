@@ -38,13 +38,10 @@ class SocialCell: UITableViewCell {
         contentView.backgroundColor = .black
         backView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(backView)
-//        contentView.sendSubviewToBack(backView)
         selectionStyle = .none
         backView.layer.cornerRadius = 5
         backView.addSubviews(logoImageView, titleLabel)
         backView.backgroundColor = #colorLiteral(red: 0.07836129516, green: 0.08116482943, blue: 0.08142057806, alpha: 1)
-//        backView.backgroundColor = #colorLiteral(red: 0.07836129516, green: 0.08116482943, blue: 0.08142057806, alpha: 1)
-//        #colorLiteral(red: 0.06590328366, green: 0.06826213747, blue: 0.06847561896, alpha: 1)
             
         titleLabel.textColor = .white
         logoImageView.contentMode = .scaleAspectFit
