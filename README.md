@@ -7,11 +7,9 @@ We create this SPM without Google and Facebook SDK.
 
 ## Screenshots
 
-### PMAuthButton
-![](http://i.piccy.info/i9/612821a7a18987667200dc03915f8894/1616874301/41106/1422865/pmauthbuttonscr.jpg)
-
-### Socials View
-![](http://i.piccy.info/i9/7c818771e5b85afefab45d7dc3a05fc4/1616874560/84939/1422865/SocialsView.jpg)
+Main View                  |  Second Screen View
+:-------------------------:|:-------------------------------:
+![](http://i.piccy.info/i9/40c8e3726d56858638d76685b147303a/1616875723/41106/1422865/12899pmauthbuttonscr.jpg)|  ![](http://i.piccy.info/i9/4dcac3d927871f5f5fd14b5f466cb60f/1616875760/207432/1422865/44886SocialsView_kopyia.png)
 
 ## Installation
 
