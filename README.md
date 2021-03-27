@@ -17,7 +17,11 @@ Insert url of this SPM in you XCode Project with `Open -> Swift Package -> Add P
 ``` swift
 let authPM = AuthPM(appId: 'YOUR_APP_ID', deepLinkingScheme: 'YOUR_URL_SCHEME')
 ```
-After all of this operations call `AuthPM.getAuthButton` function in your ViewController `viewDidLoad` function.
+After all of this operations call:
+``` swift
+AuthPM.getAuthButton()
+```
+function in your ViewController `viewDidLoad` function.
 
 ## Details
 
@@ -25,7 +29,7 @@ This implementation uses `ASWebAuthenticationSession` to securely show a web vie
 
 ## Dependencies
 
-- [PMNetworking](https://github.com/gr-yarik/PMNetworking): unique Networking SPM
+- [PMNetworking](https://github.com/gr-yarik/PMNetworking) - unique Networking SPM
 - XCode 12.4
 - Swift 5.4
 
