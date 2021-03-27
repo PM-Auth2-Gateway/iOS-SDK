@@ -3,7 +3,7 @@
 ***Created by Kononenko Yevhen and Hrytsun Yaroslav***
 
 Flexible Swift Package Manager for Google/Facebook Authorization.  
-We create this SPM without Google and Facebook SDK.
+We create this SPM without Google and Facebook SDK. 
 
 ## Screenshots
 
@@ -33,7 +33,7 @@ This implementation uses `ASWebAuthenticationSession` to securely show a web vie
 
 ## Dependencies
 
-- [PMNetworking](https://github.com/gr-yarik/PMNetworking) - unique Networking SPM
+- [PMNetworking](https://github.com/gr-yarik/PMNetworking) —— unique Networking Library (Swift Package)
 - XCode 12.4
 - Swift 5.4
 
