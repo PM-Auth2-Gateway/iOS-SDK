@@ -14,11 +14,11 @@ final class NetworkServiceMock: APIProvider {
     var getLinkComponentsCallCounter = 0
     var getUserProfileCallCounter = 0
     
-    func getServiceList(byAppId appId: Int, completion: @escaping AvailableServicesCompletion) {
+    func getServiceList(byAppId appId: Int, then: @escaping AvailableServicesCompletion) {
         getServiceListCallCounter += 1
     }
     
-    func getLinkComponents(byAppId appId: Int, socialId: Int, device: String, completion: @escaping URLComponentsCompletion) {
+    func getLinkComponents(byAppId appId: Int, socialId: Int, scheme: String, then: @escaping URLComponentsCompletion) {
         getLinkComponentsCallCounter += 1
     }
     

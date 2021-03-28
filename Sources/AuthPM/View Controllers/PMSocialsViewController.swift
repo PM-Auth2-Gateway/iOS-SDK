@@ -26,7 +26,7 @@ class PMSocialsViewController: PMDataLoadingViewController {
     private let containerView = PMContainerView()
     private let pmLogoImageView = UIImageView()
     private let tableView = PMSocialsTableView()
-    private let actionButton = PMButton(title: "Cancel")
+    private let actionButton = PMButton(title: "Cancel".localized())
     
     weak private var delegate: AuthPMDelegate?
     
@@ -117,7 +117,7 @@ class PMSocialsViewController: PMDataLoadingViewController {
             case .success(let components):
                 self.parseComponentsResult(with: components)
             case .failure(let error):
-                self.presentPMAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK", onController: self)
+                self.presentPMAlertOnMainThread(message: error.rawValue, buttonTitle: "OK")
                 self.isLoading = false
             }
         }
@@ -125,7 +125,7 @@ class PMSocialsViewController: PMDataLoadingViewController {
     
     private func parseComponentsResult(with components: URLComponentsForService) {
         guard let url = LinkParser.getSocialUrl(from: components), let scheme = deepLinkingScheme else {
-            presentPMAlertOnMainThread(title: "Something went wrong", message: "Invalid response from the server. Please try again.", buttonTitle: "OK", onController: self)
+            presentPMAlertOnMainThread(buttonTitle: "OK")
             self.isLoading = false
             return
         }
@@ -136,7 +136,7 @@ class PMSocialsViewController: PMDataLoadingViewController {
         let session = ASWebAuthenticationSession(url: url, callbackURLScheme: scheme) { [weak self] url, error in
             guard let self = self else { return }
             guard error == nil else {
-                self.presentPMAlertOnMainThread(title: "Authentication Error", message: "Authentication was interrupted. Please try again", buttonTitle: "OK", onController: self)
+                self.presentPMAlertOnMainThread(title: "Authentication Error", message: "Authentication was interrupted. Please try again", buttonTitle: "OK")
                 self.isLoading = false
                 return
             }
@@ -156,7 +156,7 @@ class PMSocialsViewController: PMDataLoadingViewController {
             self.dismissLoadingView()
             switch profileResult {
             case .failure(let error):
-                self.presentPMAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK", onController: self)
+                self.presentPMAlertOnMainThread(message: error.rawValue, buttonTitle: "OK")
             case .success(let userProfile):
                 DispatchQueue.main.async {
                     self.delegate?.didFinishAuthorization(with: userProfile)
@@ -200,7 +200,6 @@ extension PMSocialsViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("PRESSED")
         isLoading = true
         guard let availableServices = availableServices, let appId = appId, let deepLinkingScheme = deepLinkingScheme else { return }
         showLoadingView()

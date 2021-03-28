@@ -31,7 +31,7 @@ class SocialCell: UITableViewCell {
         } else if serviceName == "Facebook" {
             logoImageView.image = PMImages.facebook
         }
-        titleLabel.text = "Sign in with \(serviceName)"
+        titleLabel.text = "Sign in with ".localized() + serviceName
     }
     
     private func configure() {

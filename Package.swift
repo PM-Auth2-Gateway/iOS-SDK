@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "AuthPM",
+    defaultLocalization: "en",
     platforms: [
             .iOS(.v13),
         ],
@@ -16,7 +17,7 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-         .package(url: "https://github.com/gr-yarik/PMNetworking.git", from: "1.0.0"),
+         .package(url: "https://github.com/gr-yarik/PMNetworking.git", from: "1.0.4"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -24,7 +25,7 @@ let package = Package(
         .target(
             name: "AuthPM",
             dependencies: ["PMNetworking"],
-            resources: [.process("Images/facebook.png"), .process("Images/google.png"), .process("Images/pm.png"), .process("Images/pmlogo.png")]),
+            resources: [.process("Images/facebook.png"), .process("Images/google.png"), .process("Images/pm.png"), .process("Images/pmlogo.png"), .process("Resources")]),
         .testTarget(
             name: "AuthPMTests",
             dependencies: ["AuthPM"]),

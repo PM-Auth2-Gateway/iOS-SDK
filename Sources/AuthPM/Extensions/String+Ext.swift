@@ -7,4 +7,11 @@
 
 import Foundation
 
-extension String: Error {}
+extension String {
+    func localized() -> String {
+        return NSLocalizedString(
+            self,
+            bundle: .module,
+            comment: self)
+    }
+}

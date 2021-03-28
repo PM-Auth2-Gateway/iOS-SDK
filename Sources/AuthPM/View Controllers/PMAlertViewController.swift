@@ -20,10 +20,10 @@ class PMAlertViewController: UIViewController {
     
     private let padding: CGFloat = 20
     
-    init(title: String, message: String, buttonTitle: String) {
+    init(title: String?, message: String?, buttonTitle: String) {
         super.init(nibName: nil, bundle: nil)
-        self.alertTitle = title
-        self.message = message
+        self.alertTitle = title?.localized()
+        self.message = message?.localized()
         self.buttonTitle = buttonTitle
         modalPresentationStyle = .overFullScreen
         modalTransitionStyle = .crossDissolve
@@ -54,7 +54,7 @@ class PMAlertViewController: UIViewController {
     }
     
     private func configureTitleLabel() {
-        titleLabel.text = alertTitle ?? "Something went wrong"
+        titleLabel.text = alertTitle ?? "Something went wrong".localized()
         titleLabel.textColor = UIColor.white
         
         NSLayoutConstraint.activate([
@@ -77,7 +77,7 @@ class PMAlertViewController: UIViewController {
     }
     
     private func configureMessageLabel() {
-        messageLabel.text = message ?? "Unable to complete request"
+        messageLabel.text = message ?? "Unable to complete request".localized()
         messageLabel.numberOfLines = 4
         messageLabel.textColor = UIColor.white
         

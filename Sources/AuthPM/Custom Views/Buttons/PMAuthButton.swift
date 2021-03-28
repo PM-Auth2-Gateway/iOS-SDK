@@ -27,7 +27,7 @@ public class PMAuthButton: UIButton {
         translatesAutoresizingMaskIntoConstraints = false
         
         self.backgroundColor = .yellow
-        self.setTitle("Sign In with PMAuth", for: .normal)
+        self.setTitle("Sign In with PMAuth".localized(), for: .normal)
         self.contentEdgeInsets = UIEdgeInsets(top: 0, left: 35, bottom: 0, right: 0)
         
         let imageView = UIImageView(image: PMImages.pmLogoForAuthButton)

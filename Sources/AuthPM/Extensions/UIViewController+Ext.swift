@@ -9,12 +9,10 @@ import UIKit
 
 extension UIViewController {
     
-    func presentPMAlertOnMainThread(title: String, message: String, buttonTitle: String, onController: UIViewController) {
+    func presentPMAlertOnMainThread(title: String? = nil, message: String? = nil, buttonTitle: String) {
         DispatchQueue.main.async {
             let alertVC = PMAlertViewController(title: title, message: message, buttonTitle: buttonTitle)
-//            alertVC.modalPresentationStyle  = .overFullScreen
-//            alertVC.modalTransitionStyle    = .crossDissolve
-            onController.present(alertVC, animated: true)
+            self.present(alertVC, animated: true)
         }
     }
 }

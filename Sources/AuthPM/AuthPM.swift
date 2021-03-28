@@ -63,8 +63,7 @@ public class AuthPM: AuthProtocol {
     }
     
     private func presentErrorAlert(with error: PMNetworkingError) {
-        let alertVC = PMAlertViewController(title: "Error",
-                                            message: error.rawValue,
+        let alertVC = PMAlertViewController(title: nil, message: error.rawValue,
                                             buttonTitle: "OK")
         hostingViewController?.present(alertVC, animated: true, completion: nil)
     }
