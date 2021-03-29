@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  SocialCell.swift
 //  
 //
 //  Created by Yaroslav Hrytsun on 21.03.2021.
@@ -14,7 +14,8 @@ class SocialCell: UITableViewCell {
     private let backView = UIView()
     private let logoImageView = UIImageView()
     private let titleLabel = PMTitleLabel(textAlignment: .left, fontSize: 15)
-    private let padding: CGFloat = 5
+    
+    fileprivate let padding: CGFloat = 5
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -41,8 +42,8 @@ class SocialCell: UITableViewCell {
         selectionStyle = .none
         backView.layer.cornerRadius = 5
         backView.addSubviews(logoImageView, titleLabel)
-        backView.backgroundColor = #colorLiteral(red: 0.07836129516, green: 0.08116482943, blue: 0.08142057806, alpha: 1)
-            
+        backView.backgroundColor = UIColor(red: 0.07836129516, green: 0.08116482943, blue: 0.08142057806, alpha: 1)
+        
         titleLabel.textColor = .white
         logoImageView.contentMode = .scaleAspectFit
         logoImageView.translatesAutoresizingMaskIntoConstraints = false

@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  TitleLabel.swift
 //  
 //
 //  Created by Yaroslav Hrytsun on 21.03.2021.
@@ -25,9 +25,7 @@ class PMTitleLabel: UILabel {
     }
     
     private func configure() {
-        if #available(iOS 13.0, *) {
-            textColor = .label
-        }
+        textColor = .label
         adjustsFontSizeToFitWidth = true
         minimumScaleFactor = 0.9
         lineBreakMode = .byTruncatingTail

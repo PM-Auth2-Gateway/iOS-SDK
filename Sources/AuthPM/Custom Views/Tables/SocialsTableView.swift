@@ -1,5 +1,5 @@
 //
-//  PMSocialsTableView.swift
+//  SocialsTableView.swift
 //  
 //
 //  Created by Yaroslav Hrytsun on 21.03.2021.

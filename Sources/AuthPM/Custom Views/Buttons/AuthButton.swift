@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  AuthButton.swift
 //  
 //
 //  Created by spezza on 26.03.2021.

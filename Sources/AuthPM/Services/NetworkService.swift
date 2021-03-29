@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  NetworkService.swift
 //  
 //
 //  Created by Yaroslav Hrytsun on 21.03.2021.
@@ -9,7 +9,6 @@ import Foundation
 import PMNetworking
 
 struct NetworkService: APIProvider {
-    
     static let shared = NetworkService()
     private let networking = PMNetworking(defaultHeaders: ["Content-Type" : "application/json"])
     private let config = NetworkConfig(base: "https://net-api-hbyuu.ondigitalocean.app",
@@ -26,7 +25,7 @@ struct NetworkService: APIProvider {
         }
         let resource = Resource(url: url,
                                 requestMethod: .GET,
-                                headers: ["App_id" : String(appId)],
+                                headers: ["App_id" : "\(appId)"],
                                 decodingType: AvailableServices.self,
                                 customResponseCodeHandler: nil)
         networking.networkCall(with: resource, then: then)

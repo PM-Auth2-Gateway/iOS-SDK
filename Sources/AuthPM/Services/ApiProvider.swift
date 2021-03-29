@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  APIProvider.swift
 //  
 //
 //  Created by spezza on 26.03.2021.
@@ -9,7 +9,6 @@ import Foundation
 import PMNetworking
 
 protocol APIProvider {
-    
     typealias Completion<T> = (Result<T, PMNetworkingError>) -> ()
     
     typealias AvailableServicesCompletion = Completion<AvailableServices>

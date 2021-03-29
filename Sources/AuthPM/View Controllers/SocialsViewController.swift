@@ -1,5 +1,5 @@
 //
-//  PMSocialsViewController.swift
+//  SocialsViewController.swift
 //  
 //
 //  Created by Yaroslav Hrytsun on 21.03.2021.
@@ -30,7 +30,7 @@ class PMSocialsViewController: PMDataLoadingViewController {
     
     weak private var delegate: AuthPMDelegate?
     
-    private let padding: CGFloat = 20
+    fileprivate let padding: CGFloat = 20
     
     init(availableServices: AvailableServices, appId: Int, deepLinkingScheme: String, delegate: AuthPMDelegate, networkService: APIProvider) {
         super.init(nibName: nil, bundle: nil)
@@ -93,7 +93,7 @@ class PMSocialsViewController: PMDataLoadingViewController {
     }
     
     private func configureActionButton() {
-        actionButton.addTarget(self, action: #selector(dismissVC), for: .touchUpInside)
+        actionButton.addTarget(self, action: #selector(dismissViewController), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             actionButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -padding),
@@ -103,9 +103,10 @@ class PMSocialsViewController: PMDataLoadingViewController {
         ])
     }
     
-    @objc private func dismissVC() {
-        delegate?.didFinishAuthorization(with: nil)
-        dismiss(animated: true)
+    @objc private func dismissViewController() {
+        dismiss(animated: true) { [self] in
+            delegate?.didFinishAuthorization(with: nil)
+        }
     }
     
     private func getLinkComponents(byAppId appId: Int, socialId: Int, scheme: String) {
@@ -113,6 +114,7 @@ class PMSocialsViewController: PMDataLoadingViewController {
         networkService.getLinkComponents(byAppId: appId, socialId: socialId, scheme: scheme) { [weak self] componentsResult in
             guard let self = self else { return }
             self.dismissLoadingView()
+            
             switch componentsResult {
             case .success(let components):
                 self.parseComponentsResult(with: components)
@@ -154,6 +156,7 @@ class PMSocialsViewController: PMDataLoadingViewController {
         networkService.getUserProfile(byAppId: appId, state: state) { [weak self] profileResult in
             guard let self = self else { return }
             self.dismissLoadingView()
+            
             switch profileResult {
             case .failure(let error):
                 self.presentPMAlertOnMainThread(message: error.rawValue, buttonTitle: "OK")
@@ -170,7 +173,6 @@ class PMSocialsViewController: PMDataLoadingViewController {
             }
             self.isLoading = false
         }
-        
     }
 }
 

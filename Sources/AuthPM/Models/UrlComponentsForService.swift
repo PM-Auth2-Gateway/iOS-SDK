@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  URLComponentsForService.swift
 //  
 //
 //  Created by spezza on 24.03.2021.
@@ -8,7 +8,6 @@
 import Foundation
 
 struct URLComponentsForService: Codable {
-    
     let authUri: String
     let redirectUri: String
     let responseType: String

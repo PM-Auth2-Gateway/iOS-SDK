@@ -1,5 +1,5 @@
 //
-//  PMAlertViewController.swift
+//  AlertViewController.swift
 //  
 //
 //  Created by Yaroslav Hrytsun on 22.03.2021.
@@ -54,7 +54,7 @@ class PMAlertViewController: UIViewController {
     }
     
     private func configureTitleLabel() {
-        titleLabel.text = alertTitle ?? "Something went wrong".localized()
+        titleLabel.text = (alertTitle ?? "Something went wrong").localized()
         titleLabel.textColor = UIColor.white
         
         NSLayoutConstraint.activate([
@@ -66,7 +66,7 @@ class PMAlertViewController: UIViewController {
     }
     
     private func configureActionButton() {
-        actionButton.addTarget(self, action: #selector(dismissVC), for: .touchUpInside)
+        actionButton.addTarget(self, action: #selector(dismissViewController), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             actionButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -padding),
@@ -77,7 +77,7 @@ class PMAlertViewController: UIViewController {
     }
     
     private func configureMessageLabel() {
-        messageLabel.text = message ?? "Unable to complete request".localized()
+        messageLabel.text = (message ?? "Unable to complete request").localized()
         messageLabel.numberOfLines = 4
         messageLabel.textColor = UIColor.white
         
@@ -89,7 +89,7 @@ class PMAlertViewController: UIViewController {
         ])
     }
     
-    @objc private func dismissVC() {
+    @objc private func dismissViewController() {
         dismiss(animated: true)
     }
 }

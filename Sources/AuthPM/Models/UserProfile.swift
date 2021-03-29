@@ -1,5 +1,5 @@
 //
-//  Responses.swift
+//  UserProfile.swift
 //  
 //
 //  Created by Yaroslav Hrytsun on 19.03.2021.
@@ -8,7 +8,6 @@
 import Foundation
 
 public struct UserProfile: Codable {
-    
     public let id: String?
     public let firstName: String?
     public let lastName: String?

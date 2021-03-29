@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  NetworkConfig.swift
 //  
 //
 //  Created by spezza on 29.03.2021.

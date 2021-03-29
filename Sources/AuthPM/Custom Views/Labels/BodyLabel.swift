@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  BodyLabel.swift
 //  
 //
 //  Created by Yaroslav Hrytsun on 22.03.2021.
@@ -32,5 +32,5 @@ class PMBodyLabel: UILabel {
         lineBreakMode = .byWordWrapping
         translatesAutoresizingMaskIntoConstraints = false
     }
-    
+
 }

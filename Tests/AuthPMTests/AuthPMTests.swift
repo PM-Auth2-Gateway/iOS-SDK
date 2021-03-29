@@ -14,7 +14,6 @@ final class AuthPMTests: XCTestCase {
         authSystem.getServiceList(with: networkServiceMock)
         XCTAssertEqual(networkServiceMock.serviceListCallCounter, 1)
     }
-
 }
 
 fileprivate class MockedDelegate: AuthPMDelegate {

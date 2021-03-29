@@ -1,5 +1,5 @@
 //
-//  PMDataLoadingViewController.swift
+//  DataLoadingViewController.swift
 //  
 //
 //  Created by Yaroslav Hrytsun on 23.03.2021.
@@ -12,7 +12,6 @@ class PMDataLoadingViewController: UIViewController {
     var activityContainerView: UIView!
     
     func showLoadingView() {
-        
         DispatchQueue.main.async { [self] in
             activityContainerView = UIView(frame: view.bounds)
             view.addSubview(activityContainerView)
@@ -35,7 +34,6 @@ class PMDataLoadingViewController: UIViewController {
             
             activityIndicator.startAnimating()
         }
-
     }
     
     func dismissLoadingView() {

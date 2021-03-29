@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  UIControl+Ext.swift
 //  
 //
 //  Created by Yaroslav Hrytsun on 27.03.2021.
@@ -8,7 +8,6 @@
 import UIKit
 
 public extension UIControl {
-    
     @objc static var debounceDelay: Double = 0.5
     
     @objc func debounce(delay: Double = UIControl.debounceDelay, siblings: [UIControl] = []) {
@@ -20,5 +19,4 @@ public extension UIControl {
             buttons.forEach { $0.isEnabled = true }
         }
      }
-    
 }

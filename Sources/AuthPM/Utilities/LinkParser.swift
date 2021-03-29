@@ -8,7 +8,6 @@
 import Foundation
 
 enum LinkParser {
-    
     static func getSocialUrl(from components: URLComponentsForService) -> URL? {
         let urlString = "\(components.authUri)"
             + "?client_id=\(components.clientId)"
@@ -18,6 +17,5 @@ enum LinkParser {
             + "&state=\(components.state)"
         return URL(string: urlString)
     }
-    
 }
 
