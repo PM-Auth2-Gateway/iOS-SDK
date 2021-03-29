@@ -1,0 +1,10 @@
+"Something went wrong" = "Что-то пошло не так";
+"Sign In with AuthPM" = "Войти с AuthPM";
+"Sign in with " = "Войти с ";
+"Unable to complete request" = "Невозможно выполнить запрос";
+"Cancel" = "Отменить";
+"Authentication Error" = "Ошибка авторизации";
+"Authentication was interrupted. Please try again" = "Авторизация прервана. Пожалуйста, попробуйте еще раз";
+"Unable to complete your request. Please check your internet connection" = "Невозможно выполнить запрос. Пожалуйста, проверьте ваше соединение с интернетом";
+"Invalid response from the server. Please try again." = "Неправильный ответ от сервера. Пожалуйста, попробуйте еще раз";
+"The data received from the server was invalid. Please try again." = "Данные, полученные от сервера, недействительны. Пожалуйста, попробуйте еще раз";

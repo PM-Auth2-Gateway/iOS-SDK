@@ -2,14 +2,22 @@ import XCTest
 @testable import AuthPM
 
 final class AuthPMTests: XCTestCase {
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-        XCTAssertEqual(AuthPM().text, "Hello, World!")
+    
+    var networkServiceMock = NetworkServiceMock()
+    lazy var authSystem = AuthPM(appId: 123, deepLinkingScheme: "123", delegate: MockedDelegate())
+    
+    override func tearDown() {
+        networkServiceMock.clearCounters()
     }
+    
+    func testGetsAvailableServices() {
+        authSystem.getServiceList(with: networkServiceMock)
+        XCTAssertEqual(networkServiceMock.serviceListCallCounter, 1)
+    }
+}
 
-    static var allTests = [
-        ("testExample", testExample),
-    ]
+fileprivate class MockedDelegate: AuthPMDelegate {
+    func didFinishAuthorization(with profile: UserProfile?) {
+        return
+    }
 }

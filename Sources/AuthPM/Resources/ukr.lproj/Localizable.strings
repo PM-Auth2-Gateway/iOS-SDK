@@ -1,0 +1,10 @@
+"Something went wrong" = "Щось пішло не так";
+"Sign In with AuthPM" = "Увійти з AuthPM";
+"Sign in with " = "Увійти з ";
+"Unable to complete request" = "Неможливо виконати запит";
+"Cancel" = "Скасувати";
+"Authentication Error" = "Помилка авторизації";
+"Authentication was interrupted. Please try again" = "Авторизацію перервано. Будь ласка, спробуйте ще";
+"Unable to complete your request. Please check your internet connection" = "Неможливо виконати запит. Будь ласка, перевірте ваше з'єднання з інтернетом";
+"Invalid response from the server. Please try again." = "Недійсна відповідь від сервера. Будь ласка, спробуйте ще раз.ї";
+"The data received from the server was invalid. Please try again." = "Дані, отримані від сервера, недійсні. Будь ласка, спробуйте ще раз";
