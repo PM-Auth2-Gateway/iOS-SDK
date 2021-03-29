@@ -159,8 +159,10 @@ class PMSocialsViewController: PMDataLoadingViewController {
                 self.presentPMAlertOnMainThread(message: error.rawValue, buttonTitle: "OK")
             case .success(let userProfile):
                 DispatchQueue.main.async {
+                    self.dismiss(animated: true, completion: nil)
                     self.delegate?.didFinishAuthorization(with: userProfile)
                 }
+                return
             }
             DispatchQueue.main.async {
                 self.dismiss(animated: true, completion: nil)
