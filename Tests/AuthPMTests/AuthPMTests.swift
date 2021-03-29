@@ -7,14 +7,12 @@ final class AuthPMTests: XCTestCase {
     lazy var authSystem = AuthPM(appId: 123, deepLinkingScheme: "123", delegate: MockedDelegate())
     
     override func tearDown() {
-        networkServiceMock.getUserProfileCallCounter = 0
-        networkServiceMock.getServiceListCallCounter = 0
-        networkServiceMock.getLinkComponentsCallCounter = 0
+        networkServiceMock.clearCounters()
     }
     
     func testGetsAvailableServices() {
         authSystem.getServiceList(with: networkServiceMock)
-        XCTAssertEqual(networkServiceMock.getServiceListCallCounter, 1)
+        XCTAssertEqual(networkServiceMock.serviceListCallCounter, 1)
     }
 
 }

@@ -2,12 +2,12 @@
 //  File.swift
 //  
 //
-//  Created by Yaroslav Hrytsun on 21.03.2021.
+//  Created by Yaroslav Hrytsun on 22.03.2021.
 //
 
 import UIKit
 
-class PMTitleLabel: UILabel {
+class PMBodyLabel: UILabel {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -18,19 +18,19 @@ class PMTitleLabel: UILabel {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(textAlignment: NSTextAlignment, fontSize: CGFloat) {
+    convenience init(textAlignment: NSTextAlignment) {
         self.init(frame: .zero)
         self.textAlignment = textAlignment
-        self.font = UIFont.systemFont(ofSize: fontSize, weight: .bold)
     }
     
     private func configure() {
-        if #available(iOS 13.0, *) {
-            textColor = .label
-        }
+        textColor = .secondaryLabel
+        adjustsFontForContentSizeCategory = true
+        font = UIFont.preferredFont(forTextStyle: .body)
         adjustsFontSizeToFitWidth = true
-        minimumScaleFactor = 0.9
-        lineBreakMode = .byTruncatingTail
+        minimumScaleFactor = 0.75
+        lineBreakMode = .byWordWrapping
         translatesAutoresizingMaskIntoConstraints = false
     }
+    
 }

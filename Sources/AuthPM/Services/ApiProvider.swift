@@ -19,9 +19,9 @@ protocol APIProvider {
     func getServiceList(byAppId appId: Int, then: @escaping AvailableServicesCompletion)
     
     func getLinkComponents(byAppId appId: Int,
-                 socialId: Int,
-                 scheme: String,
-                 then: @escaping URLComponentsCompletion)
+                           socialId: Int,
+                           scheme: String,
+                           then: @escaping URLComponentsCompletion)
     
     func getUserProfile(byAppId appId: Int,
                         state: String,

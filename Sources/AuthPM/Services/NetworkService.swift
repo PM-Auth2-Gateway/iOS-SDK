@@ -12,14 +12,15 @@ struct NetworkService: APIProvider {
     
     static let shared = NetworkService()
     private let networking = PMNetworking(defaultHeaders: ["Content-Type" : "application/json"])
-    private let urlString = "https://net-api-hbyuu.ondigitalocean.app/Socials"
-    private let urlForLink = "https://net-api-hbyuu.ondigitalocean.app/Socials/auth-link"
-    private let urlForProfile = "https://net-api-hbyuu.ondigitalocean.app/Profile/info"
+    private let config = NetworkConfig(base: "https://net-api-hbyuu.ondigitalocean.app",
+                                       socialsPath: "/Socials",
+                                       authLinkPath: "/Socials/auth-link",
+                                       profileLinkPath: "/Profile/info")
     
     private init () {}
 
     func getServiceList(byAppId appId: Int, then: @escaping AvailableServicesCompletion) {
-        guard let url = URL(string: urlString) else {
+        guard let url = URL(string: config.socialsURL) else {
             then(.failure(.unableToComplete))
             return
         }
@@ -35,7 +36,7 @@ struct NetworkService: APIProvider {
                            socialId: Int,
                            scheme: String,
                            then: @escaping URLComponentsCompletion) {
-        guard let url = URL(string: urlForLink) else {
+        guard let url = URL(string: config.authURL) else {
             then(.failure(.unableToComplete))
             return
         }
@@ -50,7 +51,7 @@ struct NetworkService: APIProvider {
     func getUserProfile(byAppId appId: Int,
                         state: String,
                         then: @escaping UserProfileCompletion) {
-        guard let url = URL(string: urlForProfile) else {
+        guard let url = URL(string: config.profileURL) else {
             then(.failure(.unableToComplete))
             return
         }

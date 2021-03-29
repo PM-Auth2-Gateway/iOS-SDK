@@ -18,7 +18,7 @@ class PMAlertViewController: UIViewController {
     private var message: String?
     private var buttonTitle: String?
     
-    private let padding: CGFloat = 20
+    fileprivate let padding: CGFloat = 20
     
     init(title: String?, message: String?, buttonTitle: String) {
         super.init(nibName: nil, bundle: nil)

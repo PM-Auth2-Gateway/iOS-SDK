@@ -30,7 +30,7 @@ public class PMAuthButton: UIButton {
         self.setTitle("Sign In with AuthPM".localized(), for: .normal)
         self.contentEdgeInsets = UIEdgeInsets(top: 0, left: 35, bottom: 0, right: 0)
         
-        let imageView = UIImageView(image: PMImages.pmLogoForAuthButton)
+        let imageView = UIImageView(image: PMImage.pmLogoForAuthButton)
         addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
@@ -42,5 +42,6 @@ public class PMAuthButton: UIButton {
             imageView.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
+    
 }
 

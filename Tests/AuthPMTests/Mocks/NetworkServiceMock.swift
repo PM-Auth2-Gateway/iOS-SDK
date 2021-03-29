@@ -10,19 +10,25 @@ import Foundation
 
 final class NetworkServiceMock: APIProvider {
     
-    var getServiceListCallCounter = 0
-    var getLinkComponentsCallCounter = 0
-    var getUserProfileCallCounter = 0
+    private(set) var serviceListCallCounter = 0
+    private(set) var linkComponentsCallCounter = 0
+    private(set) var userProfileCallCounter = 0
     
     func getServiceList(byAppId appId: Int, then: @escaping AvailableServicesCompletion) {
-        getServiceListCallCounter += 1
+        serviceListCallCounter += 1
     }
     
     func getLinkComponents(byAppId appId: Int, socialId: Int, scheme: String, then: @escaping URLComponentsCompletion) {
-        getLinkComponentsCallCounter += 1
+        linkComponentsCallCounter += 1
     }
     
     func getUserProfile(byAppId appId: Int, state: String, then: @escaping UserProfileCompletion) {
-        getUserProfileCallCounter += 1
+        userProfileCallCounter += 1
+    }
+    
+    func clearCounters() {
+        serviceListCallCounter = 0
+        linkComponentsCallCounter = 0
+        userProfileCallCounter = 0
     }
 }

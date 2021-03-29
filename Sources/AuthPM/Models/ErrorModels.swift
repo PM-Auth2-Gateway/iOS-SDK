@@ -8,6 +8,7 @@
 import Foundation
 
 struct ProfileInfoError: Codable, Error {
+    
     let error: String
     let errorDescription: String
     let errorReason: String

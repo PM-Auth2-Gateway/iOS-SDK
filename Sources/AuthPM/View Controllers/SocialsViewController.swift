@@ -68,7 +68,7 @@ class PMSocialsViewController: PMDataLoadingViewController {
     }
     
     private func configurePmLogo() {
-        pmLogoImageView.image = PMImages.pm
+        pmLogoImageView.image = PMImage.pm
         pmLogoImageView.translatesAutoresizingMaskIntoConstraints = false
         pmLogoImageView.contentMode = .scaleAspectFit
         
@@ -191,7 +191,6 @@ extension PMSocialsViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 10
     }
@@ -200,7 +199,6 @@ extension PMSocialsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return UIView(frame: .zero)
     }
-    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         isLoading = true

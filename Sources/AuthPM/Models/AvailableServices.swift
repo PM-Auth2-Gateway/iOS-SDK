@@ -8,10 +8,12 @@
 import Foundation
 
 struct AvailableServices: Codable {
+    
     let socials: [Social]
 }
 
 struct Social: Codable {
+    
     let id: Int
     let name: String
     let authUri: String
