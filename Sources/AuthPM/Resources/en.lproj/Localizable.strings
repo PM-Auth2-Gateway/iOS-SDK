@@ -1,10 +1,10 @@
 "Something went wrong" = "Something went wrong";
-"Sign In with PMAuth" = "Sign In with PMAuth";
+"Sign In with AuthPM" = "Sign In with AuthPM";
 "Sign in with " = "Sign in with ";
 "Unable to complete request" = "Unable to complete request";
 "Cancel" = "Cancel";
 "Authentication Error" = "Authentication Error";
 "Authentication was interrupted. Please try again" = "Authentication was interrupted. Please try again";
-"Unable to complete your request. Please check your internet connection" = "НUnable to complete your request. Please check your internet connection";
+"Unable to complete your request. Please check your internet connection" = "Unable to complete your request. Please check your internet connection";
 "Invalid response from the server. Please try again." = "Invalid response from the server. Please try again.";
 "The data received from the server was invalid. Please try again." = "The data received from the server was invalid. Please try again.";
